@@ -6,7 +6,7 @@ import {
   addUpdatedAt,
   returnBatch,
   getDocumentsInCollection,
-  organizeFriends,
+  organizeFriends
 } from './Utility';
 import { createPostAtom } from './Atoms';
 import { sendPostDetailNotificationToFriends } from './Notifications';
@@ -17,30 +17,38 @@ const createUserPostPayload = async (
   userId: string,
   action: any,
   actionUserId: string,
-  active: boolean,
+  active: boolean
 ) => {
   const user_postRefString = `users_posts/${userId}_${postAtom.postId}`;
-  const user_post = await getDocument(db.doc(user_postRefString), user_postRefString);
+  const user_post = await getDocument(
+    db.doc(user_postRefString),
+    user_postRefString
+  );
   let user_postPayload = addUpdatedAt({
     ...postAtom,
-    userId,
+    userId
   });
 
   let actionUsers = [];
   if (active) {
     actionUsers = _.union(_.get(user_post, action, []), [actionUserId]);
   } else {
-    actionUsers = _.remove(_.get(user_post, action, []), id => id !== actionUserId);
+    actionUsers = _.remove(
+      _.get(user_post, action, []),
+      id => id !== actionUserId
+    );
   }
   user_postPayload[action] = actionUsers;
-  user_postPayload = user_post ? user_postPayload : addCreatedAt(user_postPayload);
+  user_postPayload = user_post
+    ? user_postPayload
+    : addCreatedAt(user_postPayload);
 
   return [
     db.doc(user_postRefString),
     user_postPayload,
     {
-      merge: true,
-    },
+      merge: true
+    }
   ];
 };
 
@@ -48,14 +56,20 @@ const sharedActionResources = async (db: any, change: any, context: any) => {
   const beforeData = change.before.data() ? change.before.data() : {};
   const newAction = !!_.isEmpty(beforeData);
   const afterData = change.after.data();
-  const post = await getDocument(db.doc(`posts/${afterData.postId}`), `posts/${afterData.postId}`);
-  const user = await getDocument(db.doc(`users/${afterData.userId}`), `users/${afterData.userId}`);
+  const post = await getDocument(
+    db.doc(`posts/${afterData.postId}`),
+    `posts/${afterData.postId}`
+  );
+  const user = await getDocument(
+    db.doc(`users/${afterData.userId}`),
+    `users/${afterData.userId}`
+  );
   let friends = await getDocumentsInCollection(
     db
       .collection('friends')
       .where('userIds', 'array-contains', afterData.userId)
       .where('status', '==', 'accepted'),
-    'friends',
+    'friends'
   );
   friends = organizeFriends(afterData.userId, friends);
 
@@ -65,7 +79,7 @@ const sharedActionResources = async (db: any, change: any, context: any) => {
     afterData,
     post,
     user,
-    friends,
+    friends
   };
 };
 
@@ -81,14 +95,16 @@ const sharedActionWrites = async (db: any, resources: any, action: any) => {
         db,
         `posts/${resources.post.id}`,
         resources.afterData.active,
-        `${action}Count`,
+        `${action}Count`
       ),
-      { merge: true },
+      { merge: true }
     );
   }
 
   console.log('write Post to users_posts for self and friends');
-  console.log('update array of users sharing the matching Posts in users_posts object');
+  console.log(
+    'update array of users sharing the matching Posts in users_posts object'
+  );
   const postAtom = createPostAtom(resources.post);
 
   let user_post = await createUserPostPayload(
@@ -97,7 +113,7 @@ const sharedActionWrites = async (db: any, resources: any, action: any) => {
     resources.user.id,
     `${action}s`,
     resources.user.id,
-    resources.afterData.active,
+    resources.afterData.active
   );
   batch.set(user_post[0], user_post[1], user_post[2]);
 
@@ -110,7 +126,7 @@ const sharedActionWrites = async (db: any, resources: any, action: any) => {
         resources.friends[friendId].friendUserId,
         `${action}s`,
         resources.user.id,
-        resources.afterData.active,
+        resources.afterData.active
       );
       batch.set(user_post[0], user_post[1], user_post[2]);
     }
@@ -133,7 +149,7 @@ export const _onWriteDone = async (db: any, change: any, context: any) => {
   const resources = await sharedActionResources(db, change, context);
 
   return sharedActionWrites(db, resources, 'done')
-    .then((value) => {
+    .then(value => {
       if (resources.newAction) {
         console.log('send a notification to friends');
         return sendPostDetailNotificationToFriends('done', resources);
@@ -141,11 +157,11 @@ export const _onWriteDone = async (db: any, change: any, context: any) => {
       console.log('not sending notification due to old action');
       return value;
     })
-    .then((value) => {
+    .then(value => {
       console.log('success');
       return value;
     })
-    .catch((e) => {
+    .catch(e => {
       console.error(e);
       return e;
     });
@@ -157,7 +173,7 @@ export const _onWriteLike = async (db: any, change: any, context: any) => {
   const resources = await sharedActionResources(db, change, context);
 
   return sharedActionWrites(db, resources, 'like')
-    .then((value) => {
+    .then(value => {
       if (resources.newAction) {
         console.log('send a notification to friends');
         return sendPostDetailNotificationToFriends('like', resources);
@@ -165,11 +181,11 @@ export const _onWriteLike = async (db: any, change: any, context: any) => {
       console.log('not sending notification due to old action');
       return value;
     })
-    .then((value) => {
+    .then(value => {
       console.log('success');
       return value;
     })
-    .catch((e) => {
+    .catch(e => {
       console.error(e);
       return e;
     });
@@ -181,7 +197,7 @@ export const _onWriteShare = async (db: any, change: any, context: any) => {
   const resources = await sharedActionResources(db, change, context);
 
   return sharedActionWrites(db, resources, 'share')
-    .then((value) => {
+    .then(value => {
       if (resources.newAction) {
         console.log('send a notification to friends');
         return sendPostDetailNotificationToFriends('share', resources);
@@ -189,11 +205,11 @@ export const _onWriteShare = async (db: any, change: any, context: any) => {
       console.log('not sending notification due to old action');
       return value;
     })
-    .then((value) => {
+    .then(value => {
       console.log('success');
       return value;
     })
-    .catch((e) => {
+    .catch(e => {
       console.error(e);
       return e;
     });

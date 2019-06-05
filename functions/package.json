@@ -9,13 +9,15 @@
     "lint": "tslint --project tsconfig.json",
     "build": "tsc",
     "watch": "tsc --watch",
-    "serve": "npm run build && firebase serve --only functions",
-    "shell": "npm run build && firebase functions:shell",
+    "serve": "npm --scripts-prepend-node-path true run build && firebase serve --only functions",
+    "shell": "npm --scripts-prepend-node-path true run build && firebase functions:shell",
     "start": "npm run shell",
     "logs": "firebase functions:log",
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "shayr-resources": "yarn add @daviswhitehead/shayr-resources@latest"
   },
   "dependencies": {
+    "@daviswhitehead/shayr-resources": "^1.0.10",
     "@postlight/mercury-parser": "^2.1.0",
     "@types/got": "^9.4.4",
     "@types/lodash": "^4.14.133",

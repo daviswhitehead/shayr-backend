@@ -22,5 +22,6 @@
   "bugs": {
     "url": "https://github.com/daviswhitehead/shayr-backend/issues"
   },
-  "homepage": "https://github.com/daviswhitehead/shayr-backend#readme"
+  "homepage": "https://github.com/daviswhitehead/shayr-backend#readme",
+  "dependencies": {}
 }
