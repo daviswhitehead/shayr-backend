@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" --scripts-prepend-node-path true run lint",
+      "npm --prefix \"$RESOURCE_DIR\" --scripts-prepend-node-path true run build"
+    ]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json",
+    "source": "./"
+  }
+}
