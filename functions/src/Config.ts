@@ -7,16 +7,16 @@ let initializeAppConfig = {};
 let serviceAccount = '';
 
 if (env === 'dev') {
-  serviceAccount = require('../../shayr-internal/functions/shayr-dev-a72391b9cbe3.json');
+  serviceAccount = require('../../../shayr-internal/functions/shayr-dev-a72391b9cbe3.json');
   initializeAppConfig = {
     credential: firebase.credential.cert(serviceAccount),
-    databaseURL: 'https://shayr-dev.firebaseio.com',
+    databaseURL: 'https://shayr-dev.firebaseio.com'
   };
 } else if (env === 'prod') {
-  serviceAccount = require('../../shayr-internal/functions/shayr-a2346-422bfb9c604a.json');
+  serviceAccount = require('../../../shayr-internal/functions/shayr-a2346-422bfb9c604a.json');
   initializeAppConfig = {
     credential: firebase.credential.cert(serviceAccount),
-    databaseURL: 'https://shayr-a2346.firebaseio.com',
+    databaseURL: 'https://shayr-a2346.firebaseio.com'
   };
 }
 
