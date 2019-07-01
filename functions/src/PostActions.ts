@@ -88,7 +88,6 @@ const sharedActionWrites = async (db: any, resources: any, action: any) => {
 
   // if active changed
   if (resources.afterData.active !== resources.beforeData.active) {
-    console.log('write Post with new count');
     batch.set(
       db.doc(`posts/${resources.post.id}`),
       await getUpdatedCount(
@@ -168,6 +167,7 @@ export const _onWriteDone = async (db: any, change: any, context: any) => {
 };
 
 // onWriteLike({before: {}, after: {active: true, createdAt: null, postId: "JA81g0b9mPUp8FmchL9M", updatedAt: null, url: "https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb", userId: "m592UXpes3azls6LnhN2VOf2PyT2"}}, {params: {likeId: "0_JA81g0b9mPUp8FmchL9M"}})
+// onWriteLike({before: {active: true, createdAt: null, postId: "JA81g0b9mPUp8FmchL9M", updatedAt: null, url: "https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb", userId: "m592UXpes3azls6LnhN2VOf2PyT2"}, after: {active: false, createdAt: null, postId: "JA81g0b9mPUp8FmchL9M", updatedAt: null, url: "https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb", userId: "m592UXpes3azls6LnhN2VOf2PyT2"}}, {params: {likeId: "0_JA81g0b9mPUp8FmchL9M"}})
 export const _onWriteLike = async (db: any, change: any, context: any) => {
   // "likes/{likeId}" where likeId equals `${userId}_${postId}`
   const resources = await sharedActionResources(db, change, context);

@@ -1,5 +1,5 @@
 import { db } from '../Config';
-import { addCreatedAt, addUpdatedAt, returnBatch } from '../Utility';
+import { addCreatedAt, addUpdatedAt } from '../Utility';
 
 const createFriends = (database: any) =>
   database
@@ -63,7 +63,6 @@ const createFriends = (database: any) =>
         }
       }
       batchArray.forEach(async batch => await batch.commit());
-      // return returnBatch(batch);
       return;
     });
 

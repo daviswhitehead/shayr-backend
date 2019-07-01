@@ -18,8 +18,14 @@ export const userDefault: User = {
   firstName: '',
   lastName: '',
   pushToken: '',
-  updatedAt: null,
+  updatedAt: null
 };
+
+export interface UserAtom {
+  facebookProfilePhoto: Fields.facebookProfilePhoto;
+  firstName: Fields.firstName;
+  lastName: Fields.lastName;
+}
 
 // ACTION
 export interface Action {
@@ -35,7 +41,7 @@ export const actionDefault: Action = {
   createdAt: null,
   postId: '',
   updatedAt: null,
-  userId: '',
+  userId: ''
 };
 
 // FRIENDSHIP
@@ -54,7 +60,7 @@ export const friendshipDefault: Friendship = {
   receivingUserId: '',
   status: '',
   updatedAt: null,
-  userIds: [],
+  userIds: []
 };
 
 // POST
@@ -86,12 +92,12 @@ export const postDefault: Post = {
   medium: '',
   publisher: {
     logo: '',
-    name: '',
+    name: ''
   },
   shareCount: 0,
   title: '',
   updatedAt: null,
-  url: '',
+  url: ''
 };
 
 // USERS_POSTS
@@ -111,5 +117,5 @@ export const usersPostsDefault: UsersPosts = {
   postId: '',
   ...postDefault,
   shares: [],
-  userId: '',
+  userId: ''
 };
