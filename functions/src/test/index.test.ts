@@ -126,7 +126,7 @@
 //   describe("writtenUserAdd", () => {
 //     // exports.writtenUserAdd = functions.firestore.document('users/{userId}/adds/{addId}')
 //     //   .onWrite((change, context) => {
-//     //     return counters.updateCounter(change, context, db, 'addCount')
+//     //     return counters.updateCounter(change, context, db, 'addsCount')
 //     //   });
 //     it("should update associated post counter", async () => {
 //       const wrapped = test.wrap(functions.writtenUserAdd);
@@ -165,8 +165,8 @@
 //           return e;
 //         });
 //       assert.equal(
-//         originalPost.addCount ? originalPost.addCount : 0,
-//         updatedPost.addCount - 1
+//         originalPost.addsCount ? originalPost.addsCount : 0,
+//         updatedPost.addsCount - 1
 //       );
 //     });
 //   });

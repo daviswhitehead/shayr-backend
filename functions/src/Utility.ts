@@ -90,13 +90,22 @@ export class Batcher {
     this.operationCounterCutoff = operationCounterCutoff;
   }
 
-  set(reference: any, data: any, options: any) {
+  incrementOperationCounter(operations: number) {
+    this.operationCounter += operations;
+  }
+
+  set(
+    reference: any,
+    data: any,
+    options: any,
+    additionalOperations: number = 0
+  ) {
     this.batchArray[this.batchIndex].set(reference, data, options);
-    this.operationCounter++;
+    this.operationCounter += 1 + additionalOperations;
 
     if (this.operationCounter === this.operationCounterCutoff) {
       this.batchArray.push(db.batch());
-      this.batchIndex++;
+      this.batchIndex += 1;
       this.operationCounter = 0;
     }
   }

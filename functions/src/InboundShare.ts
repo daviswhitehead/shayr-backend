@@ -1,38 +1,46 @@
 import * as _ from 'lodash';
 import {
-  getDocument, addCreatedAt, addUpdatedAt, returnBatch,
+  getDocument,
+  addCreatedAt,
+  addUpdatedAt,
+  returnBatch
 } from './Utility';
 import { scrape } from './lib/Scraper';
 
 import urlRegex = require('url-regex');
 
-const matchShareToPost = (db: any, url: string) => db
-  .collection('posts')
-  .where('url', '==', url)
-  .get()
+const matchShareToPost = (db: any, url: string) =>
+  db
+    .collection('posts')
+    .where('url', '==', url)
+    .get()
 
-// returns post DocumentReference
-  .then((query: any) => {
-    // if there's more than one matching post
-    if (query.size > 1) {
-      console.log('more than one post found');
-      return null;
-      // if there's a single matching post
-    }
-    if (query.size === 1) {
-      console.log('existing post found');
-      return query.docs[0].ref;
-      // if there's not a matching post
-    }
-    console.log('no post found, creating a new post');
-    return db.collection('posts').add(addUpdatedAt(addCreatedAt({ url })));
-  });
+    // returns post DocumentReference
+    .then((query: any) => {
+      // if there's more than one matching post
+      if (query.size > 1) {
+        console.log('more than one post found');
+        return null;
+        // if there's a single matching post
+      }
+      if (query.size === 1) {
+        console.log('existing post found');
+        return query.docs[0].ref;
+        // if there's not a matching post
+      }
+      console.log('no post found, creating a new post');
+      return db.collection('posts').add(addUpdatedAt(addCreatedAt({ url })));
+    });
 
 // v1. onCreateInboundShare({createdAt: null, updatedAt: null, url: 'https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb'}, {params: {userId: '0', shareId: '0'}})
 // v2a. onCreateInboundShare({createdAt: null, updatedAt: null, payload: 'Trump administration makes case to strike down Affordable Care Act entirely - CNN Politics https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb'}, {params: {userId: '0', shareId: '0'}})
 // v2b. onCreateInboundShare({createdAt: null, updatedAt: null, payload: 'A Dark Consensus About Screens and Kids Begins to Emerge in Silicon Valley https://nyti.ms/2JkjOdJ'}, {params: {userId: '0', shareId: '0'}})
 // v2c. onCreateInboundShare({createdAt: null, updatedAt: null, payload: 'https://www.youtube.com/watch?v=fdEinX2ngU4&feature=youtu.be'}, {params: {userId: '0', shareId: '0'}})
-export const _onCreateInboundShare = async (db: any, snap: any, context: any) => {
+export const _onCreateInboundShare = async (
+  db: any,
+  snap: any,
+  context: any
+) => {
   // "users/{userId}/inboundShares/{shareId}"
   const userId = context.params.userId;
   const inboundShareId = context.params.inboundShareId;
@@ -57,16 +65,25 @@ export const _onCreateInboundShare = async (db: any, snap: any, context: any) =>
 
   console.log('write Post with scraped data');
   let postPayload = {
-    description: _.get(postData, 'description', '') || _.get(scrapeData, 'description', ''),
+    description:
+      _.get(postData, 'description', '') ||
+      _.get(scrapeData, 'description', ''),
     image: _.get(postData, 'image', '') || _.get(scrapeData, 'image', ''),
     medium: _.get(postData, 'medium', '') || _.get(scrapeData, 'medium', ''),
-    publisher: _.get(postData, 'publisher', '') || _.get(scrapeData, 'publisher', ''),
+    publisher:
+      _.get(postData, 'publisher', '') || _.get(scrapeData, 'publisher', ''),
     title: _.get(postData, 'title', '') || _.get(scrapeData, 'title', ''),
     url: _.get(postData, 'url', '') || _.get(scrapeData, 'url', ''),
+    wordCountEstimate:
+      _.get(postData, 'wordCountEstimate', '') ||
+      _.get(scrapeData, 'wordCountEstimate', ''),
+    timeEstimate:
+      _.get(postData, 'timeEstimate', '') ||
+      _.get(scrapeData, 'timeEstimate', '')
   };
   postPayload = postData ? postPayload : addCreatedAt(postPayload);
   batch.set(db.doc(postRefString), addUpdatedAt(postPayload), {
-    merge: true,
+    merge: true
   });
 
   console.log('get share data for user post');
@@ -78,7 +95,7 @@ export const _onCreateInboundShare = async (db: any, snap: any, context: any) =>
     active: true,
     postId: postRef.id,
     url,
-    userId,
+    userId
   };
   sharePayload = shareData ? sharePayload : addCreatedAt(sharePayload);
   batch.set(db.doc(shareRefString), addUpdatedAt(sharePayload));
@@ -87,9 +104,9 @@ export const _onCreateInboundShare = async (db: any, snap: any, context: any) =>
   batch.set(
     db.doc(`users/${userId}/inboundShares/${inboundShareId}`),
     addUpdatedAt({
-      postId: postRef.id,
+      postId: postRef.id
     }),
-    { merge: true },
+    { merge: true }
   );
 
   return returnBatch(batch);

@@ -65,36 +65,36 @@ export const friendshipDefault: Friendship = {
 
 // POST
 export interface Post {
-  addCount?: Fields.addCount;
+  addsCount?: Fields.addsCount;
   createdAt: Fields.createdAt;
   description: Fields.description;
-  doneCount?: Fields.doneCount;
+  donesCount?: Fields.donesCount;
   image?: Fields.image;
-  likeCount?: Fields.likeCount;
+  likesCount?: Fields.likesCount;
   medium?: Fields.medium;
   publisher?: {
     logo?: Fields.publisherLogo;
     name?: Fields.publisherName;
   };
-  shareCount?: Fields.shareCount;
+  sharesCount?: Fields.sharesCount;
   title: Fields.title;
   updatedAt: Fields.updatedAt;
   url: Fields.url;
 }
 
 export const postDefault: Post = {
-  addCount: 0,
+  addsCount: 0,
   createdAt: null,
   description: '',
-  doneCount: 0,
+  donesCount: 0,
   image: '',
-  likeCount: 0,
+  likesCount: 0,
   medium: '',
   publisher: {
     logo: '',
     name: ''
   },
-  shareCount: 0,
+  sharesCount: 0,
   title: '',
   updatedAt: null,
   url: ''

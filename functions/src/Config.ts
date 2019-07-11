@@ -1,8 +1,8 @@
 import * as firebase from 'firebase-admin';
 
 const env = null;
-// env = 'dev';
-// env = 'prod';
+// const env = 'dev';
+// const env = 'prod';
 let initializeAppConfig = {};
 let serviceAccount = '';
 
@@ -12,7 +12,8 @@ if (env === 'dev') {
     credential: firebase.credential.cert(serviceAccount),
     databaseURL: 'https://shayr-dev.firebaseio.com'
   };
-} else if (env === 'prod') {
+}
+if (env === 'prod') {
   serviceAccount = require('../../../shayr-internal/functions/shayr-a2346-422bfb9c604a.json');
   initializeAppConfig = {
     credential: firebase.credential.cert(serviceAccount),

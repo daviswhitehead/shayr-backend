@@ -5,15 +5,15 @@ const utility = require('./Utility');
 
 const copyVariants = (type: string, name: string, post: any) => {
   const variants = {
-    share: {
+    shares: {
       title: `New shayr from ${name}`,
       body: `${name} wants you to check out "${post.title}"`
     },
-    done: {
+    dones: {
       title: `${name} marked your shayr as done`,
       body: `${name} finished checking out your shayr! Ask them how they liked it?`
     },
-    like: {
+    likes: {
       title: `${name} liked your shayr`,
       body: `${name} liked "${post.title}"`
     }
@@ -55,12 +55,12 @@ const buildPostDetailNotification = (type: string, name: string, post: any) => {
 };
 
 export const sendPostDetailNotificationToFriends = async (
-  type: 'share' | 'done' | 'like',
+  type: 'shares' | 'dones' | 'likes',
   resources: any
 ) => {
   const messages = [];
 
-  if (type === 'share') {
+  if (type === 'shares') {
     for (const friendId in resources.friends) {
       if (resources.friends.hasOwnProperty(friendId)) {
         // eslint-disable-next-line no-await-in-loop

@@ -139,7 +139,7 @@ export const _onWriteAdd = async (db: any, change: any, context: any) => {
   // "adds/{addId}" where addId equals `${userId}_${postId}`
   const resources = await sharedActionResources(db, change, context);
 
-  return sharedActionWrites(db, resources, 'add');
+  return sharedActionWrites(db, resources, 'adds');
 };
 
 // onWriteDone({before: {}, after: {active: true, createdAt: null, postId: "JA81g0b9mPUp8FmchL9M", updatedAt: null, url: "https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb", userId: "0"}}, {params: {doneId: "0_JA81g0b9mPUp8FmchL9M"}})
@@ -147,11 +147,11 @@ export const _onWriteDone = async (db: any, change: any, context: any) => {
   // "dones/{doneId}" where doneId equals `${userId}_${postId}`
   const resources = await sharedActionResources(db, change, context);
 
-  return sharedActionWrites(db, resources, 'done')
+  return sharedActionWrites(db, resources, 'dones')
     .then(value => {
       if (resources.newAction) {
         console.log('send a notification to friends');
-        return sendPostDetailNotificationToFriends('done', resources);
+        return sendPostDetailNotificationToFriends('dones', resources);
       }
       console.log('not sending notification due to old action');
       return value;
@@ -172,11 +172,11 @@ export const _onWriteLike = async (db: any, change: any, context: any) => {
   // "likes/{likeId}" where likeId equals `${userId}_${postId}`
   const resources = await sharedActionResources(db, change, context);
 
-  return sharedActionWrites(db, resources, 'like')
+  return sharedActionWrites(db, resources, 'likes')
     .then(value => {
       if (resources.newAction) {
         console.log('send a notification to friends');
-        return sendPostDetailNotificationToFriends('like', resources);
+        return sendPostDetailNotificationToFriends('likes', resources);
       }
       console.log('not sending notification due to old action');
       return value;
@@ -196,11 +196,11 @@ export const _onWriteShare = async (db: any, change: any, context: any) => {
   // "shares/{shareId}" where shareId equals `${userId}_${postId}`
   const resources = await sharedActionResources(db, change, context);
 
-  return sharedActionWrites(db, resources, 'share')
+  return sharedActionWrites(db, resources, 'shares')
     .then(value => {
       if (resources.newAction) {
         console.log('send a notification to friends');
-        return sendPostDetailNotificationToFriends('share', resources);
+        return sendPostDetailNotificationToFriends('shares', resources);
       }
       console.log('not sending notification due to old action');
       return value;

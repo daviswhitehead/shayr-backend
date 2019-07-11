@@ -27,10 +27,10 @@ export type url = string;
 export type active = boolean;
 
 // NUMBERS
-export type addCount = number;
-export type doneCount = number;
-export type likeCount = number;
-export type shareCount = number;
+export type addsCount = number;
+export type donesCount = number;
+export type likesCount = number;
+export type sharesCount = number;
 
 // ARRAYS
 export type userIds = Array<userId>;

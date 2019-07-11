@@ -22,21 +22,21 @@ const onWritePostChange = () => {
     title:
       'People are paying insane amounts of real money for "virtual real estate"',
     updatedAt: '2018-10-28T20:38:01.266Z',
-    addCount: 1,
-    doneCount: 4,
-    likeCount: 12,
+    addsCount: 1,
+    donesCount: 4,
+    likesCount: 12,
     medium: 'article',
     publisher: { name: 'Futurism', logo: '' },
     description:
       'The question at the heart of this gamble is: are people really going to hang out in virtual reality?',
     url: 'https://futurism.com/virtual-real-estate/amp/',
     image: 'https://wp-assets.futurism.com/2018/06/realestate-600x315.png',
-    shareCount: 87
+    sharesCount: 87
   };
 
   const after = {
     ...before,
-    addCount: 13
+    addsCount: 13
   };
 
   console.log(
@@ -50,4 +50,23 @@ const onWritePostChange = () => {
   return;
 };
 
-onWritePostChange();
+const onCreateInboundShare = () => {
+  const params = { postId: '0', userId: '0' };
+
+  const create = {
+    createdAt: '2018-10-28T20:38:00.992Z',
+    updatedAt: '2018-10-28T20:38:01.266Z',
+    payload: 'this is a test https://medium.com/@adamrackis/querying-a-redux-store-37db8c7f3b0f'
+  };
+
+  console.log(
+    `onCreateInboundShare({${convertObjectToString(
+      create
+    )}}, {params: {${convertObjectToString(params)}}})`
+  );
+
+  return;
+};
+
+// onWritePostChange();
+onCreateInboundShare();

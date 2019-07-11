@@ -17,7 +17,7 @@
     "shayr-resources": "yarn add @daviswhitehead/shayr-resources@latest"
   },
   "dependencies": {
-    "@daviswhitehead/shayr-resources": "^1.0.10",
+    "@daviswhitehead/shayr-resources": "^1.2.3",
     "@postlight/mercury-parser": "^2.1.0",
     "@types/got": "^9.4.4",
     "@types/lodash": "^4.14.133",
