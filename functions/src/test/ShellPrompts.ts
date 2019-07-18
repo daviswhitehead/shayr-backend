@@ -126,6 +126,6 @@ const onWriteShareNew = () => {
 };
 
 // onWritePostChange();
-// onCreateInboundShare();
+onCreateInboundShare();
 // onWriteAddChangeRemove();
-onWriteShareNew();
+// onWriteShareNew();
