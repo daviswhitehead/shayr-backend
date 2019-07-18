@@ -23,8 +23,12 @@ const copyVariants = (type: string, name: string, post: any) => {
   return variants[type];
 };
 
-const buildPostDetailNotification = (type: string, name: string, post: any) => {
-  const copy = copyVariants(type, name, post);
+const buildPostDetailNotification = (type: string, user: any, post: any) => {
+  const copy = copyVariants(
+    type,
+    `${user.firstName} ${user.lastName.charAt(0)}.`,
+    post
+  );
 
   const message = {
     notification: {
@@ -34,7 +38,8 @@ const buildPostDetailNotification = (type: string, name: string, post: any) => {
       ...copy,
       channelId: 'General',
       appLink: buildAppLink('shayr', 'shayr', 'PostDetail', {
-        ...post
+        ownerUserId: user.id,
+        postId: post.id
       })
     },
     android: {
@@ -75,25 +80,30 @@ export const sendPostDetailNotificationToFriends = async (
               friend.lastName
             }`
           );
+          console.log('buildPostDetailNotification');
 
           console.log(
-            buildPostDetailNotification(
-              type,
-              resources.user.firstName,
-              resources.post
+            JSON.stringify(
+              buildPostDetailNotification(type, resources.user, resources.post),
+              null,
+              2
             )
           );
 
-          messages.push(
-            config.msg.send({
-              ...buildPostDetailNotification(
-                type,
-                resources.user.firstName,
-                resources.post
-              ),
-              token: friend.pushToken
-            })
-          );
+          try {
+            messages.push(
+              config.msg.send({
+                ...buildPostDetailNotification(
+                  type,
+                  resources.user,
+                  resources.post
+                ),
+                token: friend.pushToken
+              })
+            );
+          } catch (err) {
+            console.error(err);
+          }
         }
       }
     }
@@ -116,23 +126,23 @@ export const sendPostDetailNotificationToFriends = async (
         );
 
         console.log(
-          buildPostDetailNotification(
-            type,
-            resources.user.firstName,
-            resources.post
-          )
+          buildPostDetailNotification(type, resources.user, resources.post)
         );
 
-        messages.push(
-          config.msg.send({
-            ...buildPostDetailNotification(
-              type,
-              resources.user.firstName,
-              resources.post
-            ),
-            token: user.pushToken
-          })
-        );
+        try {
+          messages.push(
+            config.msg.send({
+              ...buildPostDetailNotification(
+                type,
+                resources.user,
+                resources.post
+              ),
+              token: user.pushToken
+            })
+          );
+        } catch (err) {
+          console.error(err);
+        }
       }
     });
   }
