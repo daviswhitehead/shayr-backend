@@ -23,5 +23,7 @@
     "url": "https://github.com/daviswhitehead/shayr-backend/issues"
   },
   "homepage": "https://github.com/daviswhitehead/shayr-backend#readme",
-  "dependencies": {}
+  "dependencies": {
+    "firebase-admin": "^8.2.0"
+  }
 }

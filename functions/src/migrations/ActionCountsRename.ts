@@ -1,119 +1,121 @@
-// import { db } from '../Config';
-// import { Batcher } from '@daviswhitehead/shayr-resources';
-// import * as _ from 'lodash';
+import { db } from '../Config';
+import { Batcher } from '@daviswhitehead/shayr-resources';
+import * as _ from 'lodash';
 
-// const clearUserActionCounts = async (
-//   actionType: 'shares' | 'adds' | 'dones' | 'likes'
-// ) =>
-//   db
-//     .collection('posts')
-//     .get()
-//     .then(async (postsQuerySnapshot: any) => {
-//       console.log(`running for ${actionType}`);
+console.log(db);
 
-//       const preBatcher = new Batcher(db);
-//       const posts: { [key: string]: any } = {};
+const clearUserActionCounts = async (
+  actionType: 'shares' | 'adds' | 'dones' | 'likes'
+) =>
+  db
+    .collection('posts')
+    .get()
+    .then(async (postsQuerySnapshot: any) => {
+      console.log(`running for ${actionType}`);
 
-//       postsQuerySnapshot.forEach((doc: any) => {
-//         // if (doc.id !== 'cd2qGlHClQvzHnO1m5xY') {
-//         //   return;
-//         // }
+      const preBatcher = new Batcher(db);
+      const posts: { [key: string]: any } = {};
 
-//         const postId = doc.id;
-//         posts[postId] = {
-//           ...doc.data(),
-//           ref: `posts/${postId}`
-//         };
-//         console.log(`getting data for post: ${postId}`);
+      postsQuerySnapshot.forEach((doc: any) => {
+        // if (doc.id !== 'cd2qGlHClQvzHnO1m5xY') {
+        //   return;
+        // }
 
-//         preBatcher.set(
-//           db.collection(`posts`).doc(postId),
-//           {
-//             [`${actionType}Count`]: 0
-//           },
-//           {
-//             merge: true
-//           }
-//         );
-//         console.log(
-//           `writing count for: ${actionType}, post: ${postId}, count: ${_.get(
-//             posts,
-//             [postId, `${actionType.slice(0, -1)}Count`],
-//             0
-//           )}`
-//         );
-//       });
+        const postId = doc.id;
+        posts[postId] = {
+          ...doc.data(),
+          ref: `posts/${postId}`
+        };
+        console.log(`getting data for post: ${postId}`);
 
-//       preBatcher.write();
-//     });
+        preBatcher.set(
+          db.collection(`posts`).doc(postId),
+          {
+            [`${actionType}Count`]: 0
+          },
+          {
+            merge: true
+          }
+        );
+        console.log(
+          `writing count for: ${actionType}, post: ${postId}, count: ${_.get(
+            posts,
+            [postId, `${actionType.slice(0, -1)}Count`],
+            0
+          )}`
+        );
+      });
 
-// const createUserActionCounts = async (
-//   actionType: 'shares' | 'adds' | 'dones' | 'likes'
-// ) =>
-//   db
-//     .collection('posts')
-//     .get()
-//     .then(async (postsQuerySnapshot: any) => {
-//       console.log(`running for ${actionType}`);
+      preBatcher.write();
+    });
 
-//       const finalBatcher = new Batcher(db);
-//       const posts: { [key: string]: any } = {};
+const createUserActionCounts = async (
+  actionType: 'shares' | 'adds' | 'dones' | 'likes'
+) =>
+  db
+    .collection('posts')
+    .get()
+    .then(async (postsQuerySnapshot: any) => {
+      console.log(`running for ${actionType}`);
 
-//       postsQuerySnapshot.forEach((doc: any) => {
-//         // if (doc.id !== 'cd2qGlHClQvzHnO1m5xY') {
-//         //   return;
-//         // }
+      const finalBatcher = new Batcher(db);
+      const posts: { [key: string]: any } = {};
 
-//         const postId = doc.id;
-//         posts[postId] = {
-//           ...doc.data(),
-//           ref: `posts/${postId}`
-//         };
-//         console.log(`getting data for post: ${postId}`);
+      postsQuerySnapshot.forEach((doc: any) => {
+        // if (doc.id !== 'cd2qGlHClQvzHnO1m5xY') {
+        //   return;
+        // }
 
-//         console.log(
-//           `writing count for: ${actionType}, post: ${postId}, count: ${_.get(
-//             posts,
-//             [postId, `${actionType.slice(0, -1)}Count`],
-//             0
-//           )}`
-//         );
-//         finalBatcher.set(
-//           db.collection(`posts`).doc(postId),
-//           {
-//             [`${actionType}Count`]: _.get(
-//               posts,
-//               [postId, `${actionType.slice(0, -1)}Count`],
-//               0
-//             )
-//           },
-//           {
-//             merge: true
-//           }
-//         );
-//       });
+        const postId = doc.id;
+        posts[postId] = {
+          ...doc.data(),
+          ref: `posts/${postId}`
+        };
+        console.log(`getting data for post: ${postId}`);
 
-//       finalBatcher.write();
-//     });
+        console.log(
+          `writing count for: ${actionType}, post: ${postId}, count: ${_.get(
+            posts,
+            [postId, `${actionType.slice(0, -1)}Count`],
+            0
+          )}`
+        );
+        finalBatcher.set(
+          db.collection(`posts`).doc(postId),
+          {
+            [`${actionType}Count`]: _.get(
+              posts,
+              [postId, `${actionType.slice(0, -1)}Count`],
+              0
+            )
+          },
+          {
+            merge: true
+          }
+        );
+      });
 
-// const clear = async () => {
-//   await clearUserActionCounts('shares');
-//   await clearUserActionCounts('adds');
-//   await clearUserActionCounts('dones');
-//   await clearUserActionCounts('likes');
-// };
+      finalBatcher.write();
+    });
 
-// const create = async () => {
-//   await createUserActionCounts('shares');
-//   await createUserActionCounts('adds');
-//   await createUserActionCounts('dones');
-//   await createUserActionCounts('likes');
-// };
+const clear = async () => {
+  await clearUserActionCounts('shares');
+  await clearUserActionCounts('adds');
+  await clearUserActionCounts('dones');
+  await clearUserActionCounts('likes');
+};
 
-// clear();
+const create = async () => {
+  await createUserActionCounts('shares');
+  await createUserActionCounts('adds');
+  await createUserActionCounts('dones');
+  await createUserActionCounts('likes');
+};
 
-// setTimeout(function() {
-//   console.log('starting create');
+clear();
 
-//   create();
-// }, 10000);
+setTimeout(function() {
+  console.log('starting create');
+
+  create();
+}, 10000);
