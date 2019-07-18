@@ -82,7 +82,7 @@ const sharedActionWrites = async (db: any, resources: any, action: any) => {
   if (action === 'shares' && resources.newAction) {
     console.log('new share');
 
-    await updateCounts(
+    updateCounts(
       batch,
       db,
       true,
