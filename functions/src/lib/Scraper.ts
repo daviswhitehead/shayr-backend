@@ -1,5 +1,7 @@
 const metascraper = require('metascraper')([
-  require('metascraper-description')(),
+  require('metascraper-description')({
+    truncateLength: 5000
+  }),
   require('metascraper-image')(),
   require('metascraper-logo')(),
   require('metascraper-clearbit-logo')(),

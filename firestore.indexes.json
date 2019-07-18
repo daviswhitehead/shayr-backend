@@ -8,6 +8,38 @@
       ]
     },
     {
+      "collectionId": "adds",
+      "fields": [
+        { "fieldPath": "active", "mode": "ASCENDING" },
+        { "fieldPath": "userId", "mode": "ASCENDING" },
+        { "fieldPath": "updatedAt", "mode": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionId": "dones",
+      "fields": [
+        { "fieldPath": "active", "mode": "ASCENDING" },
+        { "fieldPath": "userId", "mode": "ASCENDING" },
+        { "fieldPath": "updatedAt", "mode": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionId": "likes",
+      "fields": [
+        { "fieldPath": "active", "mode": "ASCENDING" },
+        { "fieldPath": "userId", "mode": "ASCENDING" },
+        { "fieldPath": "updatedAt", "mode": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionId": "shares",
+      "fields": [
+        { "fieldPath": "active", "mode": "ASCENDING" },
+        { "fieldPath": "userId", "mode": "ASCENDING" },
+        { "fieldPath": "updatedAt", "mode": "DESCENDING" }
+      ]
+    },
+    {
       "collectionId": "users_posts",
       "fields": [
         { "fieldPath": "userId", "mode": "ASCENDING" },

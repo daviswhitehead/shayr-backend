@@ -56,9 +56,11 @@ const onCreateInboundShare = () => {
   const create = {
     createdAt: '2018-10-28T20:38:00.992Z',
     updatedAt: '2018-10-28T20:38:01.266Z',
-    payload: 'this is a test https://medium.com/@adamrackis/querying-a-redux-store-37db8c7f3b0f'
+    payload:
+      'this is a test https://medium.com/@adamrackis/querying-a-redux-store-37db8c7f3b0f'
   };
 
+  console.log();
   console.log(
     `onCreateInboundShare({${convertObjectToString(
       create
@@ -68,5 +70,62 @@ const onCreateInboundShare = () => {
   return;
 };
 
+const onWriteAddChangeRemove = () => {
+  const params = { likeId: '0_JA81g0b9mPUp8FmchL9M' };
+
+  const before = {
+    active: false,
+    createdAt: '',
+    postId: 'JA81g0b9mPUp8FmchL9M',
+    updatedAt: '',
+    userId: 'm592UXpes3azls6LnhN2VOf2PyT2'
+  };
+
+  const after = {
+    ...before,
+    active: true
+  };
+
+  console.log(
+    `onWriteLike({before: {${convertObjectToString(
+      before
+    )}}, after: {${convertObjectToString(
+      after
+    )}}}, {params: {${convertObjectToString(params)}}})`
+  );
+
+  return;
+};
+
+const onWriteShareNew = () => {
+  const params = { shareId: '0_JA81g0b9mPUp8FmchL9M' };
+
+  const before = {};
+
+  const after = {
+    active: true,
+    createdAt: null,
+    postId: 'JA81g0b9mPUp8FmchL9M',
+    updatedAt: null,
+    url:
+      'https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb',
+    userId: '0'
+    // userId: 'm592UXpes3azls6LnhN2VOf2PyT2'
+  };
+
+  console.log();
+  console.log(
+    `onWriteShare({before: {${convertObjectToString(
+      before
+    )}}, after: {${convertObjectToString(
+      after
+    )}}}, {params: {${convertObjectToString(params)}}})`
+  );
+
+  return;
+};
+
 // onWritePostChange();
-onCreateInboundShare();
+// onCreateInboundShare();
+// onWriteAddChangeRemove();
+onWriteShareNew();

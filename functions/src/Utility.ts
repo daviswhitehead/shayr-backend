@@ -2,6 +2,12 @@ import * as _ from 'lodash';
 import { firebase, db } from './Config';
 
 export const ts = firebase.firestore.FieldValue.serverTimestamp();
+export const arrayUnion = (item: any) =>
+  firebase.firestore.FieldValue.arrayUnion(item);
+export const arrayRemove = (item: any) =>
+  firebase.firestore.FieldValue.arrayRemove(item);
+export const increment = (item: number) =>
+  firebase.firestore.FieldValue.increment(item);
 
 export const addCreatedAt = (payload: any) => ({
   ...payload,

@@ -1,15 +1,17 @@
 import * as _ from 'lodash';
-import { getUpdatedCount } from './Counters';
 import {
   getDocument,
   addCreatedAt,
   addUpdatedAt,
   returnBatch,
   getDocumentsInCollection,
-  organizeFriends
+  organizeFriends,
+  arrayUnion,
+  arrayRemove
 } from './Utility';
 import { createPostAtom } from './Atoms';
 import { sendPostDetailNotificationToFriends } from './Notifications';
+import { updateCounts } from './Counters';
 
 const createUserPostPayload = async (
   db: any,
@@ -26,19 +28,10 @@ const createUserPostPayload = async (
   );
   let user_postPayload = addUpdatedAt({
     ...postAtom,
-    userId
+    userId,
+    [action]: active ? arrayUnion(actionUserId) : arrayRemove(actionUserId)
   });
 
-  let actionUsers = [];
-  if (active) {
-    actionUsers = _.union(_.get(user_post, action, []), [actionUserId]);
-  } else {
-    actionUsers = _.remove(
-      _.get(user_post, action, []),
-      id => id !== actionUserId
-    );
-  }
-  user_postPayload[action] = actionUsers;
   user_postPayload = user_post
     ? user_postPayload
     : addCreatedAt(user_postPayload);
@@ -86,17 +79,17 @@ const sharedActionResources = async (db: any, change: any, context: any) => {
 const sharedActionWrites = async (db: any, resources: any, action: any) => {
   const batch = db.batch();
 
-  // if active changed
-  if (resources.afterData.active !== resources.beforeData.active) {
-    batch.set(
-      db.doc(`posts/${resources.post.id}`),
-      await getUpdatedCount(
-        db,
-        `posts/${resources.post.id}`,
-        resources.afterData.active,
-        `${action}Count`
-      ),
-      { merge: true }
+  if (action === 'shares' && resources.newAction) {
+    console.log('new share');
+
+    await updateCounts(
+      batch,
+      db,
+      true,
+      'shares',
+      resources.post.id,
+      resources.user.id,
+      resources.user.id
     );
   }
 
@@ -110,7 +103,7 @@ const sharedActionWrites = async (db: any, resources: any, action: any) => {
     db,
     postAtom,
     resources.user.id,
-    `${action}s`,
+    action,
     resources.user.id,
     resources.afterData.active
   );
@@ -123,7 +116,7 @@ const sharedActionWrites = async (db: any, resources: any, action: any) => {
         db,
         postAtom,
         resources.friends[friendId].friendUserId,
-        `${action}s`,
+        action,
         resources.user.id,
         resources.afterData.active
       );
