@@ -54,7 +54,7 @@ export const _onCreateInboundShare = async (
 
   console.log('scraping metadata from url');
   const scrapeData = await scrape(url);
-  console.log('found metadata: ', scrapeData);
+  console.log('found metadata: ', JSON.stringify(scrapeData, null, 2));
 
   console.log('match to Post or create a new Post');
   const postRef = await matchShareToPost(db, scrapeData.url);
