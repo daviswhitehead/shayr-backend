@@ -1,14 +1,22 @@
 import * as functions from 'firebase-functions';
 import { db } from './Config';
 import { _onCreateInboundShare } from './InboundShare';
+import { _onCreateNewShare } from './NewShare';
 import {
-  _onWriteAdd, _onWriteDone, _onWriteLike, _onWriteShare,
+  _onWriteAdd,
+  _onWriteDone,
+  _onWriteLike,
+  _onWriteShare
 } from './PostActions';
 import { _onWritePost } from './Post';
 
 exports.onCreateInboundShare = functions.firestore
   .document('users/{userId}/inboundShares/{inboundShareId}')
   .onCreate((snap, context) => _onCreateInboundShare(db, snap, context));
+
+exports.onCreateShareNew = functions.firestore
+  .document('sharesNew/{shareId}')
+  .onCreate((snap, context) => _onCreateNewShare(db, snap, context));
 
 exports.onWriteAdd = functions.firestore
   .document('adds/{addId}')

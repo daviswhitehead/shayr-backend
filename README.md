@@ -137,9 +137,9 @@ dones/{userId}_{postId} {
 ```
 shares/{shareId} {
   status (string) 'started' | 'confirmed' | 'canceled',
-  comment? (string),
+  commentId? (string),
   createdAt (timestamp),
-  mentions? (Array<userId>),
+  mentionId? (Array<userId>),
   payload (string),
   postId? (string),
   updatedAt (timestamp),

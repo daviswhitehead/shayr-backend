@@ -125,7 +125,32 @@ const onWriteShareNew = () => {
   return;
 };
 
+const onCreateShareNew = () => {
+  const params = { shareId: 'hEujhNfKKbTRIDJKXGnP' };
+
+  const after = {
+    createdAt: null,
+    payload:
+      'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
+    postId: '',
+    status: 'started',
+    updatedAt: null,
+    url: '',
+    userId: 'm592UXpes3azls6LnhN2VOf2PyT2'
+  };
+
+  console.log();
+  console.log(
+    `onCreateShareNew({${convertObjectToString(
+      after
+    )}}, {params: {${convertObjectToString(params)}}})`
+  );
+
+  return;
+};
+
 // onWritePostChange();
 // onCreateInboundShare();
 // onWriteAddChangeRemove();
-onWriteShareNew();
+// onWriteShareNew();
+onCreateShareNew();

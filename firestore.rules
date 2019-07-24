@@ -10,6 +10,10 @@ service cloud.firestore {
     match /adds/{add} {
       allow read, write: if isSignedIn();
     }
+    
+    match /comments/{comment} {
+      allow read, write: if isSignedIn();
+    }
 
     match /dones/{done} {
       allow read, write: if isSignedIn();
@@ -23,11 +27,18 @@ service cloud.firestore {
       allow read, write: if isSignedIn();
     }
 
+    match /mentions/{mention} {
+      allow read, write: if isSignedIn();
+    }
+
     match /posts/{post} {
       allow read, write: if isSignedIn();
     }
 
     match /shares/{share} {
+      allow read, write: if isSignedIn();
+    }
+    match /sharesNew/{share} {
       allow read, write: if isSignedIn();
     }
 
