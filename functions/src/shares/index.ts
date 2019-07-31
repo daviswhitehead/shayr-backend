@@ -1,5 +1,5 @@
 import { getChangeInfo } from '../lib/Utility';
-import { _onCreateNewShare } from './create/NewShare';
+import { _onCreateShare } from './create/v2';
 import { _onUpdateShare } from './update/ConfirmShare';
 
 export const _onWriteShare = async (db: any, change: any, context: any) => {
@@ -8,7 +8,7 @@ export const _onWriteShare = async (db: any, change: any, context: any) => {
 
   if (changeInfo.isNewDocument) {
     // create functions
-    return _onCreateNewShare(db, changeInfo, context);
+    return _onCreateShare(db, changeInfo, context);
   }
   // write functions
   return _onUpdateShare(db, changeInfo, context);

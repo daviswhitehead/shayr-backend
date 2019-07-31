@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import { db } from './lib/Config';
 import { _onCreateInboundShare } from './shares/create/InboundShare';
-import { _onCreateNewShare } from './shares/create/NewShare';
+import { _onCreateShare } from './shares/create/v2';
 import { _onWriteAdd, _onWriteDone, _onWriteLike } from './posts/PostActions';
 import { _onWritePost } from './posts/Post';
 import { _onWriteShare } from './shares';
