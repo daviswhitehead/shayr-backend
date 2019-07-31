@@ -1,4 +1,4 @@
-import { ts } from '../Utility';
+import { ts } from '../lib/Utility';
 
 // {
 //   createdAt (timestamp),
@@ -15,14 +15,14 @@ export const inboundShares = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://nytimes.com/2018/04/03/business/media/spotifys-wall-street-debut-is-a-success.html',
+      'https://nytimes.com/2018/04/03/business/media/spotifys-wall-street-debut-is-a-success.html'
   },
   {
     id: 1,
     ref: 'users/0/inboundShares/1',
     createdAt: ts,
     updatedAt: ts,
-    url: 'https://futurism.com/virtual-real-estate/amp/',
+    url: 'https://futurism.com/virtual-real-estate/amp/'
   },
   {
     id: 2,
@@ -30,8 +30,8 @@ export const inboundShares = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://mrmoneymustache.com/2015/04/15/great-news-early-retirement-doesnt-mean-youll-stop-working/',
-  },
+      'https://mrmoneymustache.com/2015/04/15/great-news-early-retirement-doesnt-mean-youll-stop-working/'
+  }
 ];
 
 export const inboundSharesRound2 = () => [
@@ -41,7 +41,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/09/arts/music/bohemian-rhapsody-queen-live-aid.html?action=click&module=Editors%20Picks&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/09/arts/music/bohemian-rhapsody-queen-live-aid.html?action=click&module=Editors%20Picks&pgtype=Homepage'
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/09/business/phoebe-robinson-work-diary-2-dope-queens.html?action=click&module=Editors%20Picks&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/09/business/phoebe-robinson-work-diary-2-dope-queens.html?action=click&module=Editors%20Picks&pgtype=Homepage'
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/10/world/middleeast/jamal-khashoggi-murder-turkey-recordings.html',
+      'https://www.nytimes.com/2018/11/10/world/middleeast/jamal-khashoggi-murder-turkey-recordings.html'
   },
   {
     id: 6,
@@ -65,7 +65,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/10/14/world/middleeast/jamal-khashoggi-saudi-arabia.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/10/14/world/middleeast/jamal-khashoggi-saudi-arabia.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 7,
@@ -73,7 +73,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/09/us/california-fires.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/09/us/california-fires.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 8,
@@ -81,7 +81,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/10/arts/westworld-set-woolsey-fire-california.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/10/arts/westworld-set-woolsey-fire-california.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 9,
@@ -89,7 +89,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/10/us/politics/democrats-2020-president.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/10/us/politics/democrats-2020-president.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 10,
@@ -97,7 +97,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/10/us/florida-senate-governor-votes-recount.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/10/us/florida-senate-governor-votes-recount.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 11,
@@ -105,7 +105,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/10/us/politics/john-delaney-2020-iowa.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/10/us/politics/john-delaney-2020-iowa.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 12,
@@ -113,7 +113,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/10/us/deployed-inside-the-united-states-the-military-waits-for-the-migrant-caravan.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/10/us/deployed-inside-the-united-states-the-military-waits-for-the-migrant-caravan.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 13,
@@ -121,7 +121,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/10/world/americas/migrant-caravan-mexico-city.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/10/world/americas/migrant-caravan-mexico-city.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 14,
@@ -129,7 +129,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/09/us/immigration-trump-midterm-elections.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/09/us/immigration-trump-midterm-elections.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 15,
@@ -137,7 +137,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/09/world/europe/armistice-day-100th-anniversary-photos.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/09/world/europe/armistice-day-100th-anniversary-photos.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 16,
@@ -145,7 +145,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/10/world/europe/world-war-i-trump-macron.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/10/world/europe/world-war-i-trump-macron.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 17,
@@ -153,7 +153,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/10/world/europe/europe-armistice-merkel-macron-peace-war.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/10/world/europe/europe-armistice-merkel-macron-peace-war.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 18,
@@ -161,7 +161,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/10/arts/11-of-our-best-weekend-reads.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/10/arts/11-of-our-best-weekend-reads.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 19,
@@ -169,7 +169,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/08/briefing/week-in-good-news-new-york-city-marathon.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/08/briefing/week-in-good-news-new-york-city-marathon.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 20,
@@ -177,7 +177,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/interactive/2018/11/09/briefing/09weeklynewsquiz.html?action=click&module=Top%20Stories&pgtype=Homepage',
+      'https://www.nytimes.com/interactive/2018/11/09/briefing/09weeklynewsquiz.html?action=click&module=Top%20Stories&pgtype=Homepage'
   },
   {
     id: 21,
@@ -185,7 +185,7 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/10/style/the-canadian-kardashians.html?action=click&module=Editors%20Picks&pgtype=Homepage',
+      'https://www.nytimes.com/2018/11/10/style/the-canadian-kardashians.html?action=click&module=Editors%20Picks&pgtype=Homepage'
   },
   {
     id: 22,
@@ -193,6 +193,6 @@ export const inboundSharesRound2 = () => [
     createdAt: ts,
     updatedAt: ts,
     url:
-      'https://www.nytimes.com/2018/11/08/business/wendy-macnaughton-16-oz-beer-can.html?action=click&module=Editors%20Picks&pgtype=Homepage',
-  },
+      'https://www.nytimes.com/2018/11/08/business/wendy-macnaughton-16-oz-beer-can.html?action=click&module=Editors%20Picks&pgtype=Homepage'
+  }
 ];

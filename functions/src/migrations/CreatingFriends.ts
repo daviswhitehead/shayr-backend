@@ -1,5 +1,5 @@
-import { db } from '../Config';
-import { addCreatedAt, addUpdatedAt } from '../Utility';
+import { db } from '../lib/Config';
+import { addCreatedAt, addUpdatedAt } from '../lib/Utility';
 
 const createFriends = (database: any) =>
   database

@@ -70,6 +70,66 @@ const onCreateInboundShare = () => {
   return;
 };
 
+const onCreateNotification = () => {
+  // onCreateNotification({createdAt: '2019-07-31T20:04:50.838Z', readAt: {  }, isRead: false, fromId: 'm592UXpes3azls6LnhN2VOf2PyT2', message: { data: { body: 'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"', appLink: 'shayr://shayr/PostDetail?ownerUserId=m592UXpes3azls6LnhN2VOf2PyT2&postId=48PKLyY71DHin1XuIPop', channelId: 'General', title: 'New shayr from Bob S',  }, token: 'eTDnyFPzHHg:APA91bFCTLlY136VA9vEqdxOo_1DAPOBqKs7fti_7BznAId2ZAOz5aXMBeA48SzZBo4QJ7HupJlKiFOoAf9lbBducAsS0heg3BWSTWzB8DplstjYQNhxkpRC1aLiAo1ES071JnbXXVyU', notification: { title: 'New shayr from Bob S', body: 'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"',  }, android: { priority: 'high',  }, apns: { headers: { "apns-priority": '10',  }, payload: { aps: { badge: 1, alert: { body: 'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"', title: 'New shayr from Bob S',  },  },  },  },  }, updatedAt: '2019-07-31T20:04:50.838Z', pressedAt: {  }, isPressed: false, receivingUserId: 'lOnI91XOvdRnQe5Hmdrkf2TY5lH2', }, {params: {notificationId: 'EV8v8KjC0mkf1h85Ny1o', }})
+  const params = { notificationId: 'EV8v8KjC0mkf1h85Ny1o' };
+
+  const create = {
+    createdAt: '2019-07-31T20:04:50.838Z',
+    readAt: null,
+    isRead: false,
+    fromId: 'm592UXpes3azls6LnhN2VOf2PyT2',
+    message: {
+      data: {
+        body:
+          'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"',
+        appLink:
+          'shayr://shayr/PostDetail?ownerUserId=m592UXpes3azls6LnhN2VOf2PyT2&postId=48PKLyY71DHin1XuIPop',
+        channelId: 'General',
+        title: 'New shayr from Bob S'
+      },
+      token:
+        'eTDnyFPzHHg:APA91bFCTLlY136VA9vEqdxOo_1DAPOBqKs7fti_7BznAId2ZAOz5aXMBeA48SzZBo4QJ7HupJlKiFOoAf9lbBducAsS0heg3BWSTWzB8DplstjYQNhxkpRC1aLiAo1ES071JnbXXVyU',
+      notification: {
+        title: 'New shayr from Bob S',
+        body:
+          'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"'
+      },
+      android: {
+        priority: 'high'
+      },
+      apns: {
+        headers: {
+          ['apns-priority']: '10'
+        },
+        payload: {
+          aps: {
+            badge: 1,
+            alert: {
+              body:
+                'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"',
+              title: 'New shayr from Bob S'
+            }
+          }
+        }
+      }
+    },
+    updatedAt: '2019-07-31T20:04:50.838Z',
+    pressedAt: null,
+    isPressed: false,
+    receivingUserId: 'lOnI91XOvdRnQe5Hmdrkf2TY5lH2'
+  };
+
+  console.log();
+  console.log(
+    `onCreateNotification({${convertObjectToString(
+      create
+    )}}, {params: {${convertObjectToString(params)}}})`
+  );
+
+  return;
+};
+
 const onWriteAddChangeRemove = () => {
   const params = { likeId: '0_JA81g0b9mPUp8FmchL9M' };
 
@@ -149,8 +209,53 @@ const onCreateShareNew = () => {
   return;
 };
 
+const onWriteSharesNew = () => {
+  const params = { shareId: 'cPjRBZAhYe4EvJfHY0sZ' };
+
+  const before = {
+    postId: '',
+    createdAt: '',
+    mentionId: '',
+    commentId: '',
+    updatedAt: '',
+    url:
+      'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
+    status: 'started',
+    payload:
+      'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
+    userId: 'm592UXpes3azls6LnhN2VOf2PyT2'
+  };
+
+  const after = {
+    postId: '48PKLyY71DHin1XuIPop',
+    createdAt: '',
+    mentionId: 'aQUrpfw4ZZVqFsLuiIh2',
+    commentId: 'SGsXouMTkGjgnQ6A4pH6',
+    updatedAt: '',
+    url:
+      'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
+    status: 'confirmed',
+    payload:
+      'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
+    userId: 'm592UXpes3azls6LnhN2VOf2PyT2'
+  };
+
+  console.log();
+  console.log(
+    `onWriteSharesNew({before: {${convertObjectToString(
+      before
+    )}}, after: {${convertObjectToString(
+      after
+    )}}}, {params: {${convertObjectToString(params)}}})`
+  );
+
+  return;
+};
+
 // onWritePostChange();
 // onCreateInboundShare();
 // onWriteAddChangeRemove();
 // onWriteShareNew();
-onCreateShareNew();
+// onCreateShareNew();
+// onWriteSharesNew();
+onCreateNotification();

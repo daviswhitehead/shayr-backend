@@ -96,9 +96,9 @@ adds/{userId}_{postId} {
 ```
 comments/{commentId} {
   active (boolean),
-  text (string),
   createdAt (timestamp),
   postId (string),
+  text (string),
   updatedAt (timestamp),
   userId (string),
   usersPostsIds (Array<usersPostsId>),

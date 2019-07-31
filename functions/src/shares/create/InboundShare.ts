@@ -4,8 +4,8 @@ import {
   addCreatedAt,
   addUpdatedAt,
   returnBatch
-} from './Utility';
-import { scrape } from './lib/Scraper';
+} from '../../lib/Utility';
+import { scrape } from '../lib/Scraper';
 
 import urlRegex = require('url-regex');
 

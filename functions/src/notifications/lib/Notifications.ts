@@ -1,7 +1,7 @@
 import { buildAppLink } from '@daviswhitehead/shayr-resources';
 
-const config = require('./Config');
-const utility = require('./Utility');
+const config = require('../../lib/Config');
+const utility = require('../../lib/Utility');
 
 const copyVariants = (type: string, name: string, post: any) => {
   const variants = {

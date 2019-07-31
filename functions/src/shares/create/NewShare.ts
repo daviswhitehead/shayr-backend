@@ -1,13 +1,12 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import {
   getDocument,
   addCreatedAt,
   addUpdatedAt,
   returnBatch
-} from './Utility';
-import { scrape } from './lib/Scraper';
-
-import urlRegex = require('url-regex');
+} from '../../lib/Utility';
+import { scrape } from '../lib/Scraper';
+import urlRegex from 'url-regex';
 
 const matchShareToPost = (db: any, url: string) =>
   db

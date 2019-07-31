@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
-import { returnBatch } from '../Utility';
-import { db } from '../Config';
+import { returnBatch } from '../lib/Utility';
+import { db } from '../lib/Config';
 import { inboundSharesRound2 } from './Shares';
 // import { inboundShares, inboundSharesRound2 } from './Shares';
 // import { users } from './Users';

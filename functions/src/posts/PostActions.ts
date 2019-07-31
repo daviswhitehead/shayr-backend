@@ -8,10 +8,10 @@ import {
   organizeFriends,
   arrayUnion,
   arrayRemove
-} from './Utility';
-import { createPostAtom } from './Atoms';
-import { sendPostDetailNotificationToFriends } from './Notifications';
-import { updateCounts } from './Counters';
+} from '../lib/Utility';
+import { createPostAtom } from '../lib/Atoms';
+import { sendPostDetailNotificationToFriends } from '../notifications/lib/Notifications';
+import { updateCounts } from '../lib/Counters';
 
 const createUserPostPayload = async (
   db: any,

@@ -1,6 +1,20 @@
 import * as _ from 'lodash';
 import { firebase, db } from './Config';
 
+export const logger = (object: any) =>
+  console.log(JSON.stringify(object, null, 2));
+
+export const getChangeInfo = (change: any) => {
+  const before = change.before.data() || {};
+  const after = change.after.data() || {};
+
+  return {
+    isNewDocument: _.isEmpty(before),
+    before,
+    after
+  };
+};
+
 export const ts = firebase.firestore.FieldValue.serverTimestamp();
 export const arrayUnion = (item: any) =>
   firebase.firestore.FieldValue.arrayUnion(item);
@@ -56,16 +70,11 @@ export const getDocumentsInCollection = (query: any, ref: string) => {
 };
 
 export const organizeFriends = (userId: string, friends: any) => {
-  for (const friendId in friends) {
-    if (friends.hasOwnProperty(friendId)) {
-      friends[friendId].userId = userId;
-      friends[friendId].friendUserId = _.remove(
-        friends[friendId].userIds,
-        id => id !== userId
-      )[0];
-    }
-  }
-  return friends;
+  const friendIds: Array<string> = [];
+  _.forEach(friends, (value, key) => {
+    friendIds.push(...value.userIds);
+  });
+  return _.pull(_.uniq(friendIds), userId);
 };
 
 export const returnBatch = (batch: any) =>
