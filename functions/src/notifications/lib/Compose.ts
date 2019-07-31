@@ -1,7 +1,7 @@
 // https://firebase.google.com/docs/cloud-messaging/concept-options#receiving-messages-from-multiple-senders
 
-export type channelId = 'General';
-export type priority = 'high' | 'normal';
+export type ChannelId = 'General';
+export type Priority = 'high' | 'normal';
 
 const priorityMap = {
   android: {
@@ -18,8 +18,8 @@ export const composeNotification = (
   token: string,
   copy: any,
   appLink: any,
-  channelId: channelId = 'General',
-  priority: priority = 'high',
+  channelId: ChannelId = 'General',
+  priority: Priority = 'high',
   badge: number = 1
 ) => {
   const message = {
