@@ -56,6 +56,7 @@ service cloud.firestore {
 }
 
 // https://firebase.google.com/docs/firestore/security/rules-structure
+// https://firebase.google.com/docs/reference/rules/rules
 // read
 // // get applies to single document read requests
 // // list applies to queries and collection read requests

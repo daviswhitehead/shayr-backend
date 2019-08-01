@@ -14,10 +14,12 @@
     "start": "npm run shell",
     "logs": "firebase functions:log",
     "test": "mocha --reporter spec",
-    "shayr-resources": "yarn add @daviswhitehead/shayr-resources@latest"
+    "shayr-resources": "yarn add @daviswhitehead/shayr-resources@latest",
+    "tsc:node": "tsc $FILE.ts && node $FILE.js",
+    "shellprompts": "export FILE=./src/test/ShellPrompts && yarn tsc:node"
   },
   "dependencies": {
-    "@daviswhitehead/shayr-resources": "^1.2.12",
+    "@daviswhitehead/shayr-resources": "^1.2.14",
     "@postlight/mercury-parser": "^2.1.0",
     "@types/got": "^9.4.4",
     "@types/lodash": "^4.14.133",

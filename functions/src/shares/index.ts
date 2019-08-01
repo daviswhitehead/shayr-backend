@@ -1,6 +1,6 @@
 import { getChangeInfo } from '../lib/Utility';
 import { _onCreateShare } from './create/v2';
-import { _onUpdateShare } from './update/ConfirmShare';
+import { _onUpdateShare } from './update/v2';
 
 export const _onWriteShare = async (db: any, change: any, context: any) => {
   const changeInfo = getChangeInfo(change);

@@ -26,10 +26,10 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.2"
 
-"@daviswhitehead/shayr-resources@^1.2.12":
-  version "1.2.12"
-  resolved "https://registry.yarnpkg.com/@daviswhitehead/shayr-resources/-/shayr-resources-1.2.12.tgz#d7551ec29b7752f5c82600c02e55472e03c2a055"
-  integrity sha512-KJyOn5hLaU7rOvajy8FSWq9Km4YjRk4ttoDtY6Zx4cm3WFx6C1v1acaT0lzcKyGBchfjTwOmP5A3uDlZlGLcnw==
+"@daviswhitehead/shayr-resources@^1.2.14":
+  version "1.2.14"
+  resolved "https://registry.yarnpkg.com/@daviswhitehead/shayr-resources/-/shayr-resources-1.2.14.tgz#a460dacf7511c7b2d5c70f863f3cccbd95314d0b"
+  integrity sha512-k0Zo8HBfG89MRvMFk3oJWdbY4Zphs7kbt0dm9EbZ0l3zI1IBLEb+9vZx4p2xR4i7gQ0iOuZ4gXmFX106topLCA==
   dependencies:
     "@types/lodash" "^4.14.133"
     "@types/urijs" "^1.19.1"

@@ -157,21 +157,56 @@ const onWriteAddChangeRemove = () => {
   return;
 };
 
-const onWriteShareNew = () => {
-  const params = { shareId: '0_JA81g0b9mPUp8FmchL9M' };
+const onWriteShare = (type: 'create' | 'update' | 'delete' | 'write') => {
+  let params = {};
+  let before = {};
+  let after = {};
 
-  const before = {};
+  if (type === 'create') {
+    params = { shareId: 'hEujhNfKKbTRIDJKXGnP' };
 
-  const after = {
-    active: true,
-    createdAt: null,
-    postId: 'JA81g0b9mPUp8FmchL9M',
-    updatedAt: null,
-    url:
-      'https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb',
-    userId: '0'
-    // userId: 'm592UXpes3azls6LnhN2VOf2PyT2'
-  };
+    after = {
+      createdAt: null,
+      payload:
+        'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
+      postId: '',
+      status: 'started',
+      updatedAt: null,
+      url: '',
+      userId: 'm592UXpes3azls6LnhN2VOf2PyT2'
+    };
+  }
+  if (type === 'update') {
+    params = { shareId: 'cPjRBZAhYe4EvJfHY0sZ' };
+
+    before = {
+      postId: '',
+      createdAt: '',
+      mentionId: '',
+      commentId: '',
+      updatedAt: '',
+      url:
+        'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
+      status: 'started',
+      payload:
+        'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
+      userId: 'm592UXpes3azls6LnhN2VOf2PyT2'
+    };
+
+    after = {
+      postId: '48PKLyY71DHin1XuIPop',
+      createdAt: '',
+      mentionId: 'aQUrpfw4ZZVqFsLuiIh2',
+      commentId: 'SGsXouMTkGjgnQ6A4pH6',
+      updatedAt: '',
+      url:
+        'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
+      status: 'confirmed',
+      payload:
+        'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
+      userId: 'm592UXpes3azls6LnhN2VOf2PyT2'
+    };
+  }
 
   console.log();
   console.log(
@@ -185,68 +220,22 @@ const onWriteShareNew = () => {
   return;
 };
 
-const onCreateShareNew = () => {
-  const params = { shareId: 'hEujhNfKKbTRIDJKXGnP' };
+const onCreateUsersPosts = () => {
+  // onCreateUsersPosts({userId: 'test', postId: 'test', testCount: 1, test: { 0: 'test',  }, }, {params: {usersPostsId: 'test_test', }})
+  const params = { usersPostsId: 'test_test' };
 
-  const after = {
-    createdAt: null,
-    payload:
-      'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
-    postId: '',
-    status: 'started',
-    updatedAt: null,
-    url: '',
-    userId: 'm592UXpes3azls6LnhN2VOf2PyT2'
+  const create = {
+    userId: 'test',
+    postId: 'test',
+    testCount: 1,
+    test: ['test']
   };
 
   console.log();
   console.log(
-    `onCreateShareNew({${convertObjectToString(
-      after
+    `onCreateUsersPosts({${convertObjectToString(
+      create
     )}}, {params: {${convertObjectToString(params)}}})`
-  );
-
-  return;
-};
-
-const onWriteSharesNew = () => {
-  const params = { shareId: 'cPjRBZAhYe4EvJfHY0sZ' };
-
-  const before = {
-    postId: '',
-    createdAt: '',
-    mentionId: '',
-    commentId: '',
-    updatedAt: '',
-    url:
-      'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
-    status: 'started',
-    payload:
-      'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
-    userId: 'm592UXpes3azls6LnhN2VOf2PyT2'
-  };
-
-  const after = {
-    postId: '48PKLyY71DHin1XuIPop',
-    createdAt: '',
-    mentionId: 'aQUrpfw4ZZVqFsLuiIh2',
-    commentId: 'SGsXouMTkGjgnQ6A4pH6',
-    updatedAt: '',
-    url:
-      'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
-    status: 'confirmed',
-    payload:
-      'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147',
-    userId: 'm592UXpes3azls6LnhN2VOf2PyT2'
-  };
-
-  console.log();
-  console.log(
-    `onWriteSharesNew({before: {${convertObjectToString(
-      before
-    )}}, after: {${convertObjectToString(
-      after
-    )}}}, {params: {${convertObjectToString(params)}}})`
   );
 
   return;
@@ -256,6 +245,6 @@ const onWriteSharesNew = () => {
 // onCreateInboundShare();
 // onWriteAddChangeRemove();
 // onWriteShareNew();
-// onCreateShareNew();
-// onWriteSharesNew();
-onCreateNotification();
+// onWriteShare('update');
+// onCreateNotification();
+onCreateUsersPosts();

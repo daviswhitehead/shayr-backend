@@ -183,27 +183,3 @@ export const _onWriteLike = async (db: any, change: any, context: any) => {
       return e;
     });
 };
-
-// onWriteShare({before: {}, after: {active: true, createdAt: null, postId: "JA81g0b9mPUp8FmchL9M", updatedAt: null, url: "https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb", userId: "m592UXpes3azls6LnhN2VOf2PyT2"}}, {params: {shareId: "0_JA81g0b9mPUp8FmchL9M"}})
-export const _onWriteShare = async (db: any, change: any, context: any) => {
-  // "shares/{shareId}" where shareId equals `${userId}_${postId}`
-  const resources = await sharedActionResources(db, change, context);
-
-  return sharedActionWrites(db, resources, 'shares')
-    .then(value => {
-      if (resources.newAction) {
-        console.log('send a notification to friends');
-        return sendPostDetailNotificationToFriends('shares', resources);
-      }
-      console.log('not sending notification due to old action');
-      return value;
-    })
-    .then(value => {
-      console.log('success');
-      return value;
-    })
-    .catch(e => {
-      console.error(e);
-      return e;
-    });
-};

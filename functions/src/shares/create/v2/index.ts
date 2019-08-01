@@ -3,7 +3,8 @@ import {
   getDocument,
   addCreatedAt,
   addUpdatedAt,
-  returnBatch
+  returnBatch,
+  logger
 } from '../../../lib/Utility';
 import { scrape } from '../../lib/Scraper';
 import urlRegex from 'url-regex';
@@ -35,10 +36,16 @@ const matchShareToPost = (db: any, url: string) =>
 // v2a. onCreateInboundShare({createdAt: null, updatedAt: null, payload: 'Trump administration makes case to strike down Affordable Care Act entirely - CNN Politics https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb'}, {params: {userId: '0', shareId: '0'}})
 // v2b. onCreateInboundShare({createdAt: null, updatedAt: null, payload: 'A Dark Consensus About Screens and Kids Begins to Emerge in Silicon Valley https://nyti.ms/2JkjOdJ'}, {params: {userId: '0', shareId: '0'}})
 // v2c. onCreateInboundShare({createdAt: null, updatedAt: null, payload: 'https://www.youtube.com/watch?v=fdEinX2ngU4&feature=youtu.be'}, {params: {userId: '0', shareId: '0'}})
-export const _onCreateShare = async (db: any, snap: any, context: any) => {
+export const _onCreateShare = async (
+  db: any,
+  changeInfo: any,
+  context: any
+) => {
   // "shares/{shareId}"
   const shareId = context.params.shareId;
-  const payload = snap.data().payload;
+  const payload = changeInfo.after.payload;
+  console.log('payload');
+  logger(payload);
 
   const batch = db.batch();
 

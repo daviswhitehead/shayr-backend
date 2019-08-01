@@ -6,6 +6,7 @@ import { _onWriteAdd, _onWriteDone, _onWriteLike } from './posts/PostActions';
 import { _onWritePost } from './posts/Post';
 import { _onWriteShare } from './shares';
 import { _onCreateNotification } from './notifications/index';
+import { onCreateUsersPosts } from './users_posts/create/index';
 
 exports.onWriteAdd = functions.firestore
   .document('adds/{addId}')
@@ -27,6 +28,10 @@ exports.onWritePost = functions.firestore
   .document('posts/{postId}')
   .onWrite((change, context) => _onWritePost(db, change, context));
 
-exports.onWriteShares = functions.firestore
+exports.onWriteShare = functions.firestore
   .document('shares/{shareId}')
   .onWrite((change, context) => _onWriteShare(db, change, context));
+
+exports.onCreateUsersPosts = functions.firestore
+  .document('users_posts/{usersPostsId}') // {usersPostsId} = {userId}_{postId}
+  .onCreate((snap, context) => onCreateUsersPosts(db, snap, context));
