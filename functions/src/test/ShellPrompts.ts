@@ -241,6 +241,8 @@ const onCreateUsersPosts = () => {
   return;
 };
 
+// onCreateDone({active: true, createdAt: null, postId: "JA81g0b9mPUp8FmchL9M", updatedAt: null, url: "https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb", userId: "0"}, {params: {doneId: "0_JA81g0b9mPUp8FmchL9M"}})
+
 // onWritePostChange();
 // onCreateInboundShare();
 // onWriteAddChangeRemove();

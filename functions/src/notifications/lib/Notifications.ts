@@ -1,7 +1,8 @@
-import { buildAppLink } from '@daviswhitehead/shayr-resources';
+import { buildAppLink, getDocument } from '@daviswhitehead/shayr-resources';
+import { logger } from '../../lib/Utility';
 
 const config = require('../../lib/Config');
-const utility = require('../../lib/Utility');
+// const utility = require('../../lib/Utility');
 
 const copyVariants = (type: string, name: string, post: any) => {
   const variants = {
@@ -38,8 +39,8 @@ const buildPostDetailNotification = (type: string, user: any, post: any) => {
       ...copy,
       channelId: 'General',
       appLink: buildAppLink('shayr', 'shayr', 'PostDetail', {
-        ownerUserId: user.id,
-        postId: post.id
+        ownerUserId: user._id,
+        postId: post._id
       })
     },
     android: {
@@ -69,8 +70,8 @@ export const sendPostDetailNotificationToFriends = async (
     for (const friendId in resources.friends) {
       if (resources.friends.hasOwnProperty(friendId)) {
         // eslint-disable-next-line no-await-in-loop
-        const friend = await utility.getDocument(
-          config.db.doc(`users/${resources.friends[friendId].friendUserId}`),
+        const friend = await getDocument(
+          config.db,
           `users/${resources.friends[friendId].friendUserId}`
         );
 
@@ -108,19 +109,22 @@ export const sendPostDetailNotificationToFriends = async (
       }
     }
   } else {
-    const user_post = await utility.getDocument(
-      config.db.doc(`users_posts/${resources.user.id}_${resources.post.id}`),
-      `users_posts/${resources.user.id}_${resources.post.id}`
+    const user_post = await getDocument(
+      config.db,
+      `users_posts/${resources.user._id}_${resources.post._id}`
     );
+    logger('user_post');
+    logger(user_post);
 
     user_post.shares.forEach(async (userId: string) => {
-      // eslint-disable-next-line no-await-in-loop
-      const user = await utility.getDocument(
-        config.db.doc(`users/${userId}`),
-        `users/${userId}`
-      );
+      console.log('here');
 
-      if (user && user.pushToken && userId !== resources.user.id) {
+      // eslint-disable-next-line no-await-in-loop
+      const user = await getDocument(config.db, `users/${userId}`);
+      logger('user');
+      logger(user);
+
+      if (user && user.pushToken && userId !== resources.user._id) {
         console.log(
           `queueing up a notification to ${user.firstName} ${user.lastName}`
         );

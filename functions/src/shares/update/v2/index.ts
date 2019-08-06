@@ -42,41 +42,43 @@ export const _onUpdateShare = async (
   console.log('notificationAppLink');
   logger(notificationAppLink);
 
-  await Promise.all(
-    mention.users.map(async (mentionUserId: string) => {
-      const mentionUser = await getDocument(db, `users/${mentionUserId}`);
-      console.log('mentionUser');
-      logger(mentionUser);
+  if (!_.isEmpty(mention.users)) {
+    await Promise.all(
+      mention.users.map(async (mentionUserId: string) => {
+        const mentionUser = await getDocument(db, `users/${mentionUserId}`);
+        console.log('mentionUser');
+        logger(mentionUser);
 
-      if (mentionUser.pushToken) {
-        const message: Message = composeNotification(
-          mentionUser.pushToken,
-          notificationCopy,
-          notificationAppLink,
-          'General',
-          'high',
-          1
-        );
-        console.log('message');
-        logger(message);
+        if (mentionUser.pushToken) {
+          const message: Message = composeNotification(
+            mentionUser.pushToken,
+            notificationCopy,
+            notificationAppLink,
+            'General',
+            'high',
+            1
+          );
+          console.log('message');
+          logger(message);
 
-        const notification: Notification = {
-          ...notificationDefault,
-          createdAt: ts,
-          fromId: user._id,
-          message,
-          receivingUserId: mentionUserId,
-          updatedAt: ts
-        };
-        console.log('notification');
-        logger(notification);
+          const notification: Notification = {
+            ...notificationDefault,
+            createdAt: ts,
+            fromId: user._id,
+            message,
+            receivingUserId: mentionUserId,
+            updatedAt: ts
+          };
+          console.log('notification');
+          logger(notification);
 
-        batcher.set(db.collection('notifications').doc(), notification);
-      } else {
-        console.log(`${mentionUserId} does not have a pushToken`);
-      }
-    })
-  );
+          batcher.set(db.collection('notifications').doc(), notification);
+        } else {
+          console.log(`${mentionUserId} does not have a pushToken`);
+        }
+      })
+    );
+  }
 
   const errors = batcher.write();
   if (_.isEmpty(errors)) {
