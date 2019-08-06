@@ -8,6 +8,14 @@
       ]
     },
     {
+      "collectionId": "comments",
+      "fields": [
+        { "fieldPath": "visibleToUserIds", "mode": "ARRAY_CONTAINS" },
+        { "fieldPath": "postId", "mode": "ASCENDING" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
+    },
+    {
       "collectionId": "adds",
       "fields": [
         { "fieldPath": "active", "mode": "ASCENDING" },
