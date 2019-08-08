@@ -19,6 +19,17 @@ export const _onUpdateShare = async (
 ) => {
   const batcher = new Batcher(db);
 
+  console.log('changeInfo');
+  logger(changeInfo);
+
+  // prevent function from running if mentionId hasn't been attached yet
+  if (
+    _.isEmpty(changeInfo.after.mentionId) ||
+    changeInfo.after.mentionId === changeInfo.before.mentionId
+  ) {
+    return;
+  }
+
   const user = await getDocument(db, `users/${changeInfo.after.userId}`);
   console.log('user');
   logger(user);
@@ -42,7 +53,7 @@ export const _onUpdateShare = async (
   console.log('notificationAppLink');
   logger(notificationAppLink);
 
-  if (!_.isEmpty(mention.users)) {
+  if (mention || !_.isEmpty(mention.users)) {
     await Promise.all(
       mention.users.map(async (mentionUserId: string) => {
         const mentionUser = await getDocument(db, `users/${mentionUserId}`);

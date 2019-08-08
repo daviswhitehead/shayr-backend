@@ -50,6 +50,10 @@ export const onCreatePostAction = async (db: any, snap: any, context: any) => {
   if (!_.isEmpty(usersPost.shares)) {
     await Promise.all(
       usersPost.shares.map(async (shareUserId: string) => {
+        if (shareUserId === snapData.userId) {
+          logger('preventing sending notification to same user');
+          return;
+        }
         const shareUser = await getDocument(db, `users/${shareUserId}`);
         logger('shareUser');
         logger(shareUser);
@@ -90,6 +94,7 @@ export const onCreatePostAction = async (db: any, snap: any, context: any) => {
     logger('success!');
   } else {
     logger('failure :/');
+    console.log(errors);
   }
 
   return true;
