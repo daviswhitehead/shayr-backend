@@ -5,8 +5,8 @@
   "scripts": {
     "f:login": "firebase login",
     "f:list": "firebase list",
-    "prod": "firebase use shayr-a2346",
-    "dev": "firebase use shayr-dev",
+    "prod": "firebase use shayr-a2346 && export GOOGLE_APPLICATION_CREDENTIALS=\"/Users/daviswhitehead/Documents/github/shayr-internal/functions/shayr-a2346-422bfb9c604a.json\"",
+    "dev": "firebase use shayr-dev && export GOOGLE_APPLICATION_CREDENTIALS=\"/Users/daviswhitehead/Documents/github/shayr-internal/functions/shayr-dev-a72391b9cbe3.json\"",
     "deploy": "firebase deploy",
     "deploy:functions": "firebase deploy --only functions",
     "deploy:firestore": "firebase deploy --only firestore",

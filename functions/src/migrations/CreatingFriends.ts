@@ -1,17 +1,15 @@
+import { Batcher } from '@daviswhitehead/shayr-resources';
 import { db } from '../lib/Config';
 import { addCreatedAt, addUpdatedAt } from '../lib/Utility';
+import * as _ from 'lodash';
 
-const createFriends = (database: any) =>
+const createFriends = (database: any) => {
+  const batcher = new Batcher(database);
+
   database
     .collection('users')
     .get()
     .then((querySnapshot: any) => {
-      const batchArray = [];
-      batchArray.push(database.batch());
-      let operationCounter = 0;
-      let batchIndex = 0;
-
-      // const batch = database.batch();
       const users: { [key: string]: any } = {};
 
       querySnapshot.forEach((doc: any) => {
@@ -37,33 +35,23 @@ const createFriends = (database: any) =>
                 userIds: [initiatingUserId, receivingUserId]
               };
 
-              batchArray[batchIndex].set(
+              batcher.set(
                 database
                   .collection('friends')
                   .doc(`${initiatingUserId}_${receivingUserId}`),
                 addUpdatedAt(addCreatedAt(friendship))
               );
-              operationCounter++;
-
-              if (operationCounter === 100) {
-                batchArray.push(database.batch());
-                batchIndex++;
-                operationCounter = 0;
-              }
-              // batch.set(
-              //   database
-              //     .collection('friends')
-              //     .doc(`${initiatingUserId}_${receivingUserId}`),
-              //   addUpdatedAt(addCreatedAt(friendship))
-              // );
               console.log(receivingUserId);
             }
           }
           delete users[initiatingUserId];
         }
       }
-      batchArray.forEach(async batch => await batch.commit());
+      const errors = batcher.write();
+      console.log(errors);
+
       return;
     });
+};
 
 createFriends(db);

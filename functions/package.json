@@ -19,12 +19,12 @@
     "shellprompts": "export FILE=./src/test/ShellPrompts && yarn tsc:node"
   },
   "dependencies": {
-    "@daviswhitehead/shayr-resources": "^1.2.15",
+    "@daviswhitehead/shayr-resources": "^1.2.16",
     "@postlight/mercury-parser": "^2.1.0",
     "@types/got": "^9.4.4",
     "@types/lodash": "^4.14.133",
     "@types/urijs": "^1.19.1",
-    "firebase-admin": "^8.2.0",
+    "firebase-admin": "^8.3.0",
     "firebase-functions": "^3.1.0",
     "got": "^9.6.0",
     "lodash": "^4.17.5",

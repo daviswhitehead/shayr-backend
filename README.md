@@ -70,6 +70,32 @@ See Objects.ts for the most up-to-date version
 - [users](#users)
 - [users_posts](#users_posts)
 
+## notifications
+
+### definition
+
+```
+notifications/{notificationId} {
+  body (string),
+  createdAt (timestamp),
+  fromId (string),
+  isRead (boolean),
+  isPressed (boolean),
+  message (map),
+  pressedAt (timestamp),
+  readAt (timestamp),
+  receivingUserId (string),
+  title (string),
+  updatedAt (timestamp),
+}
+```
+
+### lifecycle
+
+| action               | trigger                         | description                                                                                                                                                                                                 | objects                                                                                                                                                   |
+| -------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TOGGLE_ADD_DONE_POST | toggled when a user adds a post | toggling should switch the active boolean and update the other fields. toggling should update any add counts and if active is becoming `true` and `isDone` is true then it should decrement the done count. | - `adds/{userId}_{postId}` <br> - `updateCounts(adds)` <br> - `if active = true and isDone`: `dones/{userId}_{postId}` and `updateCounts(dones, -1)` <br> |
+
 ## adds
 
 ### definition
