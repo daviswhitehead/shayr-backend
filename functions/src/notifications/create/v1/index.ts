@@ -1,10 +1,17 @@
 import { msg } from '../../../lib/Config';
+import { logger } from '../../../lib/Utility';
+import _ from 'lodash';
 
-export const onCreateNotification = (snap: any, context: any) => {
-  const snapData = snap.data();
+export const onCreateNotification = (
+  db: any,
+  changeInfo: any,
+  context: any
+) => {
+  console.log('changeInfo.after.message');
+  logger(changeInfo.after.message);
 
   return msg
-    .send(snapData.message)
+    .send(changeInfo.after.message)
     .then(response => {
       console.log('Successfully sent message:', response);
     })

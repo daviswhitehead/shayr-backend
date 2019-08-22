@@ -30,6 +30,10 @@ service cloud.firestore {
     match /mentions/{mention} {
       allow read, write: if isSignedIn();
     }
+    
+    match /notifications/{notification} {
+      allow read, write: if isSignedIn();
+    }
 
     match /posts/{post} {
       allow read, write: if isSignedIn();

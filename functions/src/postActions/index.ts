@@ -10,14 +10,25 @@ import { logger, ts } from '../lib/Utility';
 import { composeNotification } from '../notifications/lib/Compose';
 import {
   newDoneNotificationCopy,
-  newLikeNotificationCopy
+  newLikeNotificationCopy,
+  newCommentNotificationCopy
 } from '../notifications/lib/Copy';
 import { postDetails } from '../notifications/lib/AppLinks';
 
 export const onCreatePostAction = async (db: any, snap: any, context: any) => {
   const batcher = new Batcher(db);
 
-  const isDone = _.includes(snap.ref.path, 'dones');
+  // const isDone = _.includes(snap.ref.path, 'dones');
+  // const isComment = _.includes(snap.ref.path, 'comments');
+  // const isLike = _.includes(snap.ref.path, 'likes');
+  const action =
+    (_.includes(snap.ref.path, 'comments') && 'comment') ||
+    (_.includes(snap.ref.path, 'dones') && 'done') ||
+    (_.includes(snap.ref.path, 'likes') && 'like');
+
+  logger('action');
+  logger(action);
+
   const snapData = snap.data();
   logger('snapData');
   logger(snapData);
@@ -37,9 +48,10 @@ export const onCreatePostAction = async (db: any, snap: any, context: any) => {
   logger('usersPost');
   logger(usersPost);
 
-  const notificationCopy = isDone
-    ? newDoneNotificationCopy(user, post)
-    : newLikeNotificationCopy(user, post);
+  const notificationCopy =
+    (action === 'comment' && newCommentNotificationCopy(user, post)) ||
+    (action === 'done' && newDoneNotificationCopy(user, post)) ||
+    (action === 'like' && newLikeNotificationCopy(user, post));
   logger('notificationCopy');
   logger(notificationCopy);
 
@@ -65,7 +77,9 @@ export const onCreatePostAction = async (db: any, snap: any, context: any) => {
             notificationAppLink,
             'General',
             'high',
-            1
+            shareUser.unreadNotificationsCount
+              ? shareUser.unreadNotificationsCount + 1
+              : 1
           );
           logger('message');
           logger(message);

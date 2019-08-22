@@ -42,3 +42,15 @@ export const newLikeNotificationCopy = (
     body: `${name} liked "${post.title}"`
   };
 };
+
+export const newCommentNotificationCopy = (
+  user: User,
+  post: Post | UsersPosts
+) => {
+  const name = getUserShortName(user);
+
+  return {
+    title: `${name} commented on your shayr`,
+    body: `${name} commented on "${post.title}"`
+  };
+};

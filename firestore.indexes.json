@@ -78,6 +78,13 @@
         { "fieldPath": "likes", "mode": "ARRAY_CONTAINS" },
         { "fieldPath": "updatedAt", "mode": "DESCENDING" }
       ]
+    },
+    {
+      "collectionId": "notifications",
+      "fields": [
+        { "fieldPath": "receivingUserId", "mode": "ASCENDING" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
     }
   ]
 }

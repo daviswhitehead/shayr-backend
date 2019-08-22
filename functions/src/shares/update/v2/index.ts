@@ -67,7 +67,9 @@ export const _onUpdateShare = async (
             notificationAppLink,
             'General',
             'high',
-            1
+            mentionUser.unreadNotificationsCount
+              ? mentionUser.unreadNotificationsCount + 1
+              : 1
           );
           console.log('message');
           logger(message);
