@@ -30,7 +30,8 @@ export const composeNotification = (
     data: {
       ...copy,
       channelId,
-      appLink
+      appLink,
+      badge: `${badge}`
     },
     android: {
       priority: priorityMap.android[priority]

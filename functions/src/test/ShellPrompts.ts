@@ -72,7 +72,7 @@ const onCreateInboundShare = () => {
 
 const onWriteNotificationNew = () => {
   // onWriteNotification({createdAt: '2019-07-31T20:04:50.838Z', readAt: {  }, isRead: false, fromId: 'm592UXpes3azls6LnhN2VOf2PyT2', message: { data: { body: 'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"', appLink: 'shayr://shayr/PostDetail?ownerUserId=m592UXpes3azls6LnhN2VOf2PyT2&postId=48PKLyY71DHin1XuIPop', channelId: 'General', title: 'New shayr from Bob S',  }, token: 'eTDnyFPzHHg:APA91bFCTLlY136VA9vEqdxOo_1DAPOBqKs7fti_7BznAId2ZAOz5aXMBeA48SzZBo4QJ7HupJlKiFOoAf9lbBducAsS0heg3BWSTWzB8DplstjYQNhxkpRC1aLiAo1ES071JnbXXVyU', notification: { title: 'New shayr from Bob S', body: 'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"',  }, android: { priority: 'high',  }, apns: { headers: { "apns-priority": '10',  }, payload: { aps: { badge: 1, alert: { body: 'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"', title: 'New shayr from Bob S',  },  },  },  },  }, updatedAt: '2019-07-31T20:04:50.838Z', pressedAt: {  }, isPressed: false, receivingUserId: 'lOnI91XOvdRnQe5Hmdrkf2TY5lH2', }, {params: {notificationId: 'EV8v8KjC0mkf1h85Ny1o', }})
-  // onWriteNotification({before: {}, after: {createdAt: '2019-07-31T20:04:50.838Z', readAt: {  }, isRead: false, fromId: 'm592UXpes3azls6LnhN2VOf2PyT2', message: { data: { body: 'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"', appLink: 'shayr://shayr/PostDetail?ownerUserId=m592UXpes3azls6LnhN2VOf2PyT2&postId=48PKLyY71DHin1XuIPop', channelId: 'General', title: 'New shayr from Bob S',  }, token: 'cuiH0-qCzeA:APA91bGCEbomXOG4SFBfGkvaPmfuAjG5ekgES_MzcyOk0M6w0cFcMeETaXuXBJtjWu5LEteUWg_ZESgN-rhAQfByUMuYanbNSlxJGynJ5lf7zC0fWNjlv_teuod3Yynkur4NFCk-OtnI', notification: { title: 'New shayr from Bob S', body: 'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"',  }, android: { priority: 'high',  }, apns: { headers: { "apns-priority": '10',  }, payload: { aps: { badge: 1, alert: { body: 'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"', title: 'New shayr from Bob S',  },  },  },  },  }, updatedAt: '2019-07-31T20:04:50.838Z', pressedAt: {  }, isPressed: false, receivingUserId: 'lOnI91XOvdRnQe5Hmdrkf2TY5lH2', }}, {params: {notificationId: 'EV8v8KjC0mkf1h85Ny1o', }})
+  // onWriteNotification({before: {}, after: {createdAt: '2019-07-31T20:04:50.838Z', readAt: {  }, isRead: false, fromId: 'm592UXpes3azls6LnhN2VOf2PyT2', message: { data: { badge: "1", body: 'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"', appLink: 'shayr://shayr/PostDetail?ownerUserId=m592UXpes3azls6LnhN2VOf2PyT2&postId=48PKLyY71DHin1XuIPop', channelId: 'General', title: 'New shayr from Bob S',  }, token: 'fhyf2StehXI:APA91bFSFeDBh7gMHG6Dgtgmu4nZ-JpbhqctEh0x8KiWPIR5McBbo7zxZq5WeLFBffsVog0wud_H-IErDOYv5PWttw9solIlUa7u21ku0mvVtOcbvSxyzOHNB2o2R19slb_cOXP-v-bE', notification: { title: 'New shayr from Bob S', body: 'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"',  }, android: { priority: 'high',  }, apns: { headers: { "apns-priority": '10',  }, payload: { aps: { badge: 1, alert: { body: 'Bob S wants you to check out "How Crypto Could Bring Tax Evasion to the Masses"', title: 'New shayr from Bob S',  },  },  },  },  }, updatedAt: '2019-07-31T20:04:50.838Z', pressedAt: {  }, isPressed: false, receivingUserId: 'lOnI91XOvdRnQe5Hmdrkf2TY5lH2', }}, {params: {notificationId: 'EV8v8KjC0mkf1h85Ny1o', }})
 
   const params = { notificationId: 'EV8v8KjC0mkf1h85Ny1o' };
   const before = {};
@@ -88,7 +88,8 @@ const onWriteNotificationNew = () => {
         appLink:
           'shayr://shayr/PostDetail?ownerUserId=m592UXpes3azls6LnhN2VOf2PyT2&postId=48PKLyY71DHin1XuIPop',
         channelId: 'General',
-        title: 'New shayr from Bob S'
+        title: 'New shayr from Bob S',
+        badge: '1'
       },
       token:
         'eTDnyFPzHHg:APA91bFCTLlY136VA9vEqdxOo_1DAPOBqKs7fti_7BznAId2ZAOz5aXMBeA48SzZBo4QJ7HupJlKiFOoAf9lbBducAsS0heg3BWSTWzB8DplstjYQNhxkpRC1aLiAo1ES071JnbXXVyU',
@@ -285,6 +286,6 @@ const onCreateUsersPosts = () => {
 // onWriteAddChangeRemove();
 // onWriteShareNew();
 // onWriteShare('update');
-// onWriteNotificationNew();
+onWriteNotificationNew();
 // onCreateUsersPosts();
-onCreateComment();
+// onCreateComment();
