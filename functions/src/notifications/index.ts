@@ -18,7 +18,7 @@ export const _onWriteNotification = async (
 
   if (changeInfo.isNewDocument) {
     // create functions
-    return onCreateNotificationV1(db, changeInfo, context);
+    await onCreateNotificationV1(db, changeInfo, context);
   }
   // write functions
   // update unreadNotificationsCount for user

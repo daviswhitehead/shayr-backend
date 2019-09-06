@@ -80,6 +80,14 @@
       ]
     },
     {
+      "collectionId": "users_posts",
+      "fields": [
+        { "fieldPath": "userId", "mode": "ASCENDING" },
+        { "fieldPath": "comments", "mode": "ARRAY_CONTAINS" },
+        { "fieldPath": "updatedAt", "mode": "DESCENDING" }
+      ]
+    },
+    {
       "collectionId": "notifications",
       "fields": [
         { "fieldPath": "receivingUserId", "mode": "ASCENDING" },
