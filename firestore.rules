@@ -18,8 +18,8 @@ service cloud.firestore {
     match /dones/{done} {
       allow read, write: if isSignedIn();
     }
-
-    match /friends/{friendship} {
+    
+    match /friendships/{friendship} {
       allow read, write: if isSignedIn();
     }
 
