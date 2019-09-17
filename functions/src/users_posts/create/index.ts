@@ -29,25 +29,5 @@ export const onCreateUsersPosts = async (db: any, snap: any, context: any) => {
       });
   }
 
-  if (data && data.postId) {
-    await db
-      .collection('posts')
-      .doc(data.postId)
-      .set(
-        {
-          updatedAt: ts(firebase.firestore)
-        },
-        { merge: true }
-      )
-      .then((response: any) => {
-        console.log('Success:');
-        logger(response);
-      })
-      .catch((error: Error) => {
-        console.log('Error:');
-        logger(error);
-      });
-  }
-
   return;
 };

@@ -97,7 +97,7 @@ export const _onUpdateShare = async (
   if (_.isEmpty(errors)) {
     console.log('success!');
   } else {
-    console.log('failure :/');
+    console.error('failure :/');
   }
 
   return true;
