@@ -3,10 +3,11 @@ import {
   Batcher,
   Message,
   Notification,
-  notificationDefault
+  notificationDefault,
+  ts
 } from '@daviswhitehead/shayr-resources';
 import _ from 'lodash';
-import { logger, ts } from '../lib/Utility';
+import { logger } from '../lib/Utility';
 import { composeNotification } from '../notifications/lib/Compose';
 import {
   newDoneNotificationCopy,
@@ -14,6 +15,7 @@ import {
   newCommentNotificationCopy
 } from '../notifications/lib/Copy';
 import { postDetails } from '../notifications/lib/AppLinks';
+import { firebase } from '../lib/Config';
 
 export const onCreatePostAction = async (db: any, snap: any, context: any) => {
   const batcher = new Batcher(db);
@@ -86,11 +88,11 @@ export const onCreatePostAction = async (db: any, snap: any, context: any) => {
 
           const notification: Notification = {
             ...notificationDefault,
-            createdAt: ts,
+            createdAt: ts(firebase.firestore),
             fromId: user._id,
             message,
             receivingUserId: shareUserId,
-            updatedAt: ts
+            updatedAt: ts(firebase.firestore)
           };
           logger('notification');
           logger(notification);

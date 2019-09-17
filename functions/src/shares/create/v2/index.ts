@@ -1,13 +1,9 @@
 import _ from 'lodash';
-import {
-  getDocument,
-  addCreatedAt,
-  addUpdatedAt,
-  returnBatch,
-  logger
-} from '../../../lib/Utility';
+import { getDocument, Batcher, ts } from '@daviswhitehead/shayr-resources';
+import { logger } from '../../../lib/Utility';
 import { scrape } from '../../lib/Scraper';
 import urlRegex from 'url-regex';
+import { firebase } from '../../../lib/Config';
 
 const matchShareToPost = (db: any, url: string) =>
   db
@@ -29,7 +25,11 @@ const matchShareToPost = (db: any, url: string) =>
         // if there's not a matching post
       }
       console.log('no post found, creating a new post');
-      return db.collection('posts').add(addUpdatedAt(addCreatedAt({ url })));
+      return db.collection('posts').add({
+        createdAt: ts(firebase.firestore),
+        updatedAt: ts(firebase.firestore),
+        url
+      });
     });
 
 export const _onCreateShare = async (
@@ -43,7 +43,7 @@ export const _onCreateShare = async (
   console.log('payload');
   logger(payload);
 
-  const batch = db.batch();
+  const batcher = new Batcher(db);
 
   console.log('matching url from share data');
   const url = payload.match(urlRegex())[0];
@@ -61,7 +61,7 @@ export const _onCreateShare = async (
   const postData = await getDocument(db.doc(postRefString), postRefString);
 
   console.log('write Post with scraped data');
-  let postPayload = {
+  const postPayload: any = {
     description:
       _.get(postData, 'description', '') ||
       _.get(scrapeData, 'description', ''),
@@ -76,10 +76,13 @@ export const _onCreateShare = async (
       _.get(scrapeData, 'wordCountEstimate', ''),
     timeEstimate:
       _.get(postData, 'timeEstimate', '') ||
-      _.get(scrapeData, 'timeEstimate', '')
+      _.get(scrapeData, 'timeEstimate', ''),
+    updatedAt: ts(firebase.firestore)
   };
-  postPayload = postData ? postPayload : addCreatedAt(postPayload);
-  batch.set(db.doc(postRefString), addUpdatedAt(postPayload), {
+  if (!postData) {
+    _.assign(postPayload['createdAt'], ts(firebase.firestore));
+  }
+  batcher.set(db.doc(postRefString), postPayload, {
     merge: true
   });
 
@@ -89,9 +92,18 @@ export const _onCreateShare = async (
     postId: postRef.id,
     url: postPayload.url
   };
-  batch.set(db.doc(shareRefString), addUpdatedAt(sharePayload), {
-    merge: true
-  });
+  batcher.set(
+    db.doc(shareRefString),
+    { ...sharePayload, updatedAt: ts(firebase.firestore) },
+    {
+      merge: true
+    }
+  );
 
-  return returnBatch(batch);
+  const errors = await batcher.write();
+  if (_.isEmpty(errors)) {
+    console.log('success!');
+  } else {
+    console.error('failure :/');
+  }
 };

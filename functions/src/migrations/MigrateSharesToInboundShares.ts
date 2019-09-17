@@ -1,12 +1,14 @@
+import _ from 'lodash';
 import { db } from '../lib/Config';
-import { returnBatch } from '../lib/Utility';
+import { Batcher } from '@daviswhitehead/shayr-resources';
 
 const getShares = (database: any) =>
   database
     .collection('users')
     .get()
     .then(async (usersQuerySnapshot: any) => {
-      const batch = database.batch();
+      const batcher = new Batcher(db);
+
       const users: { [key: string]: any } = {};
       const sharesToGet: any = [];
 
@@ -24,7 +26,7 @@ const getShares = (database: any) =>
           snapshots.forEach((sharesQuerySnapshot: any) => {
             sharesQuerySnapshot.forEach((doc: any) => {
               const data = doc.data();
-              batch.set(
+              batcher.set(
                 database
                   .collection(`users/${doc.ref.parent.parent.id}/inboundShares`)
                   .doc(),
@@ -43,7 +45,14 @@ const getShares = (database: any) =>
           return e;
         });
 
-      return returnBatch(batch);
+      const errors = await batcher.write();
+      if (_.isEmpty(errors)) {
+        console.log('success!');
+      } else {
+        console.error('failure :/');
+      }
+
+      return;
     });
 
 getShares(db);

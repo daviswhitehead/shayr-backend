@@ -1,6 +1,5 @@
 import { Batcher } from '@daviswhitehead/shayr-resources';
 import { db } from '../lib/Config';
-import { addCreatedAt, addUpdatedAt } from '../lib/Utility';
 import * as _ from 'lodash';
 
 const createFriends = (database: any) => {
@@ -39,7 +38,8 @@ const createFriends = (database: any) => {
                 database
                   .collection('friends')
                   .doc(`${initiatingUserId}_${receivingUserId}`),
-                addUpdatedAt(addCreatedAt(friendship))
+                friendship
+                // addUpdatedAt(addCreatedAt(friendship))
               );
               console.log(receivingUserId);
             }
