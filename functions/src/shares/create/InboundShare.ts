@@ -1,10 +1,6 @@
-import * as _ from 'lodash';
-import {
-  getDocument,
-  addCreatedAt,
-  addUpdatedAt,
-  returnBatch
-} from '../../lib/Utility';
+import _ from 'lodash';
+import { getDocument, Batcher, ts } from '@daviswhitehead/shayr-resources';
+import { firebase } from '../../lib/Config';
 import { scrape } from '../lib/Scraper';
 
 import urlRegex = require('url-regex');
@@ -29,7 +25,11 @@ const matchShareToPost = (db: any, url: string) =>
         // if there's not a matching post
       }
       console.log('no post found, creating a new post');
-      return db.collection('posts').add(addUpdatedAt(addCreatedAt({ url })));
+      return db.collection('posts').add({
+        createdAt: ts(firebase.firestore),
+        updatedAt: ts(firebase.firestore),
+        url
+      });
     });
 
 // v1. onCreateInboundShare({createdAt: null, updatedAt: null, url: 'https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb'}, {params: {userId: '0', shareId: '0'}})
@@ -46,7 +46,7 @@ export const _onCreateInboundShare = async (
   const inboundShareId = context.params.inboundShareId;
   const payload = snap.data().payload || snap.data().url; // handles v1 and v2, preferring v2
 
-  const batch = db.batch();
+  const batcher = new Batcher(db);
 
   console.log('matching url from inboundShare data');
   const url = payload.match(urlRegex())[0];
@@ -61,10 +61,10 @@ export const _onCreateInboundShare = async (
   const postRefString = `posts/${postRef.id}`;
 
   console.log('get Post data');
-  const postData = await getDocument(db.doc(postRefString), postRefString);
+  const postData = await getDocument(db, postRefString);
 
   console.log('write Post with scraped data');
-  let postPayload = {
+  let postPayload: any = {
     description:
       _.get(postData, 'description', '') ||
       _.get(scrapeData, 'description', ''),
@@ -79,35 +79,51 @@ export const _onCreateInboundShare = async (
       _.get(scrapeData, 'wordCountEstimate', ''),
     timeEstimate:
       _.get(postData, 'timeEstimate', '') ||
-      _.get(scrapeData, 'timeEstimate', '')
+      _.get(scrapeData, 'timeEstimate', ''),
+    updatedAt: ts(firebase.firestore)
   };
-  postPayload = postData ? postPayload : addCreatedAt(postPayload);
-  batch.set(db.doc(postRefString), addUpdatedAt(postPayload), {
+  postPayload = postData
+    ? postPayload
+    : { ...postPayload, createdAt: ts(firebase.firestore) };
+  batcher.set(db.doc(postRefString), postPayload, {
     merge: true
   });
 
   console.log('get share data for user post');
   const shareRefString = `shares/${userId}_${postRef.id}`;
-  const shareData = await getDocument(db.doc(shareRefString), shareRefString);
+  const shareData = await getDocument(db, shareRefString);
 
   console.log('write share for user post');
-  let sharePayload = {
+  let sharePayload: any = {
     active: true,
     postId: postRef.id,
     url,
     userId
   };
-  sharePayload = shareData ? sharePayload : addCreatedAt(sharePayload);
-  batch.set(db.doc(shareRefString), addUpdatedAt(sharePayload));
+  sharePayload = shareData
+    ? sharePayload
+    : { ...sharePayload, createdAt: ts(firebase.firestore) };
+  batcher.set(db.doc(shareRefString), {
+    ...sharePayload,
+    updateddAt: ts(firebase.firestore)
+  });
 
   console.log('write Share with Post reference');
-  batch.set(
+  batcher.set(
     db.doc(`users/${userId}/inboundShares/${inboundShareId}`),
-    addUpdatedAt({
-      postId: postRef.id
-    }),
+    {
+      postId: postRef.id,
+      updatedAt: ts(firebase.firestore)
+    },
     { merge: true }
   );
 
-  return returnBatch(batch);
+  const errors = await batcher.write();
+  if (_.isEmpty(errors)) {
+    console.log('success!');
+  } else {
+    console.error('failure :/');
+  }
+
+  return;
 };

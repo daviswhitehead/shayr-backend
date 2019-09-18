@@ -5,6 +5,7 @@ import { _onCreateShare } from './shares/create/v2';
 import { onCreatePostAction } from './postActions/index';
 import { _onWritePost } from './posts/Post';
 import { _onWriteShare } from './shares';
+import { _onWriteFriendship } from './friendships';
 import { _onWriteNotification } from './notifications/index';
 import { onCreateUsersPosts } from './users_posts/create/index';
 
@@ -31,6 +32,10 @@ exports.onWritePost = functions.firestore
 exports.onWriteShare = functions.firestore
   .document('shares/{shareId}')
   .onWrite((change, context) => _onWriteShare(db, change, context));
+
+exports.onWriteFriendship = functions.firestore
+  .document('friendships/{friendshipId}')
+  .onWrite((change, context) => _onWriteFriendship(db, change, context));
 
 exports.onCreateUsersPosts = functions.firestore
   .document('users_posts/{usersPostsId}') // {usersPostsId} = {userId}_{postId}

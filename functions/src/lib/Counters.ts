@@ -1,4 +1,10 @@
-import { ts, increment, arrayRemove, arrayUnion } from './Utility';
+import { firebase } from './Config';
+import {
+  ts,
+  increment,
+  arrayRemove,
+  arrayUnion
+} from '@daviswhitehead/shayr-resources';
 
 // export const getUpdatedCount = (
 //   db: any,
@@ -41,8 +47,8 @@ export const updateCounts = (
   batcher.set(
     db.collection('posts').doc(postId),
     {
-      [`${action}Count`]: increment(isIncremental ? 1 : -1),
-      updatedAt: ts
+      [`${action}Count`]: increment(firebase.firestore, isIncremental ? 1 : -1),
+      updatedAt: ts(firebase.firestore)
     },
     {
       merge: true
@@ -52,9 +58,11 @@ export const updateCounts = (
   batcher.set(
     db.collection('users_posts').doc(`${ownerUserId}_${postId}`),
     {
-      [`${action}Count`]: increment(isIncremental ? 1 : -1),
-      [`${action}`]: isIncremental ? arrayUnion(userId) : arrayRemove(userId),
-      updatedAt: ts
+      [`${action}Count`]: increment(firebase.firestore, isIncremental ? 1 : -1),
+      [`${action}`]: isIncremental
+        ? arrayUnion(firebase.firestore, userId)
+        : arrayRemove(firebase.firestore, userId),
+      updatedAt: ts(firebase.firestore)
     },
     {
       merge: true
@@ -65,9 +73,14 @@ export const updateCounts = (
     batcher.set(
       db.collection('users_posts').doc(`${userId}_${postId}`),
       {
-        [`${action}Count`]: increment(isIncremental ? 1 : -1),
-        [`${action}`]: isIncremental ? arrayUnion(userId) : arrayRemove(userId),
-        updatedAt: ts
+        [`${action}Count`]: increment(
+          firebase.firestore,
+          isIncremental ? 1 : -1
+        ),
+        [`${action}`]: isIncremental
+          ? arrayUnion(firebase.firestore, userId)
+          : arrayRemove(firebase.firestore, userId),
+        updatedAt: ts(firebase.firestore)
       },
       {
         merge: true
@@ -78,8 +91,8 @@ export const updateCounts = (
   batcher.set(
     db.collection('users').doc(userId),
     {
-      [`${action}Count`]: increment(isIncremental ? 1 : -1),
-      updatedAt: ts
+      [`${action}Count`]: increment(firebase.firestore, isIncremental ? 1 : -1),
+      updatedAt: ts(firebase.firestore)
     },
     {
       merge: true

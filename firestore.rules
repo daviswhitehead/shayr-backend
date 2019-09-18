@@ -22,6 +22,10 @@ service cloud.firestore {
     match /friends/{friendship} {
       allow read, write: if isSignedIn();
     }
+    
+    match /friendships/{friendship} {
+      allow read, write: if isSignedIn();
+    }
 
     match /likes/{like} {
       allow read, write: if isSignedIn();

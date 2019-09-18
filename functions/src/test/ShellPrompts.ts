@@ -279,13 +279,56 @@ const onCreateUsersPosts = () => {
   return;
 };
 
-// onCreateDone({active: true, createdAt: null, postId: "JA81g0b9mPUp8FmchL9M", updatedAt: null, url: "https://hackernoon.com/5-tips-for-building-effective-product-management-teams-c320ce54a4bb", userId: "0"}, {params: {doneId: "0_JA81g0b9mPUp8FmchL9M"}})
+const onWriteFriendship = (type: 'create' | 'update') => {
+  const params = {
+    friendshipId: 'lOnI91XOvdRnQe5Hmdrkf2TY5lH2_m592UXpes3azls6LnhN2VOf2PyT2'
+  };
+  let after;
+  let before;
 
-// onWritePostChange();
-// onCreateInboundShare();
-// onWriteAddChangeRemove();
-// onWriteShareNew();
-// onWriteShare('update');
-onWriteNotificationNew();
-// onCreateUsersPosts();
-// onCreateComment();
+  if (type === 'create') {
+    before = {};
+    after = {
+      updatedAt: '2019-09-16T19:17:48.925Z',
+      userIds: ['lOnI91XOvdRnQe5Hmdrkf2TY5lH2', 'm592UXpes3azls6LnhN2VOf2PyT2'],
+      status: 'pending',
+      initiatingUserId: 'lOnI91XOvdRnQe5Hmdrkf2TY5lH2',
+      receivingUserId: 'm592UXpes3azls6LnhN2VOf2PyT2',
+      createdAt: '2019-09-16T19:07:00.081Z'
+    };
+  }
+
+  if (type === 'update') {
+    before = {
+      updatedAt: '2019-09-16T19:17:48.925Z',
+      // userIds: ['lOnI91XOvdRnQe5Hmdrkf2TY5lH2', 'TEST'],
+      userIds: ['lOnI91XOvdRnQe5Hmdrkf2TY5lH2', 'm592UXpes3azls6LnhN2VOf2PyT2'],
+      status: 'pending',
+      initiatingUserId: 'lOnI91XOvdRnQe5Hmdrkf2TY5lH2',
+      // receivingUserId: 'TEST',
+      receivingUserId: 'm592UXpes3azls6LnhN2VOf2PyT2',
+      createdAt: '2019-09-16T19:07:00.081Z'
+    };
+    after = {
+      ...before,
+      updatedAt: '2019-09-16T19:17:48.925Z',
+      status: 'accepted'
+    };
+  }
+
+  console.log();
+  console.log(
+    `onWriteFriendship({before: {${convertObjectToString(
+      before
+    )}}, after: {${convertObjectToString(
+      after
+    )}}}, {params: {${convertObjectToString(params)}}})`
+  );
+
+  return;
+};
+
+// onWriteFriendship('create');
+// onWriteFriendship('update');
+
+onWritePostChange();

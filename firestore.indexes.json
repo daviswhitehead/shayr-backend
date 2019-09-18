@@ -93,6 +93,13 @@
         { "fieldPath": "receivingUserId", "mode": "ASCENDING" },
         { "fieldPath": "createdAt", "mode": "DESCENDING" }
       ]
+    },
+    {
+      "collectionId": "friendships",
+      "fields": [
+        { "fieldPath": "userIds", "mode": "ARRAY_CONTAINS" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
     }
   ]
 }

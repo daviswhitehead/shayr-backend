@@ -3,13 +3,15 @@ import {
   Batcher,
   Message,
   Notification,
-  notificationDefault
+  notificationDefault,
+  ts
 } from '@daviswhitehead/shayr-resources';
 import _ from 'lodash';
-import { logger, ts } from '../../../lib/Utility';
+import { logger } from '../../../lib/Utility';
 import { composeNotification } from '../../../notifications/lib/Compose';
 import { newShareNotificationCopy } from '../../../notifications/lib/Copy';
 import { postDetails } from '../../../notifications/lib/AppLinks';
+import { firebase } from '../../../lib/Config';
 
 // onWriteSharesNew({before: {postId: '', createdAt: '', mentionId: '', commentId: '', updatedAt: '', url: 'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147', status: 'started', payload: 'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147', userId: 'm592UXpes3azls6LnhN2VOf2PyT2', }, after: {postId: '48PKLyY71DHin1XuIPop', createdAt: '', mentionId: 'aQUrpfw4ZZVqFsLuiIh2', commentId: 'SGsXouMTkGjgnQ6A4pH6', updatedAt: '', url: 'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147', status: 'confirmed', payload: 'https://onezero.medium.com/how-crypto-could-bring-tax-evasion-to-the-masses-bb4060766147', userId: 'm592UXpes3azls6LnhN2VOf2PyT2', }}, {params: {shareId: 'cPjRBZAhYe4EvJfHY0sZ', }})
 export const _onUpdateShare = async (
@@ -76,11 +78,11 @@ export const _onUpdateShare = async (
 
           const notification: Notification = {
             ...notificationDefault,
-            createdAt: ts,
+            createdAt: ts(firebase.firestore),
             fromId: user._id,
             message,
             receivingUserId: mentionUserId,
-            updatedAt: ts
+            updatedAt: ts(firebase.firestore)
           };
           console.log('notification');
           logger(notification);
@@ -97,7 +99,7 @@ export const _onUpdateShare = async (
   if (_.isEmpty(errors)) {
     console.log('success!');
   } else {
-    console.log('failure :/');
+    console.error('failure :/');
   }
 
   return true;

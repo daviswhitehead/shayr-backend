@@ -15,3 +15,12 @@ export const postDetails = (user: User, post: Post | UsersPosts) => {
     key: `PostDetail:${ownerUserId}_${postId}`
   });
 };
+
+export const myList = (user: User) => {
+  const ownerUserId = user._id;
+
+  return buildAppLink('shayr', 'shayr', 'MyList', {
+    ownerUserId,
+    key: `MyList:${ownerUserId}`
+  });
+};
