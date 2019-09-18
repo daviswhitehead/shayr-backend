@@ -58,7 +58,7 @@ export const _onCreateShare = async (
   const postRefString = `posts/${postRef.id}`;
 
   console.log('get Post data');
-  const postData = await getDocument(db.doc(postRefString), postRefString);
+  const postData = await getDocument(db, postRefString);
 
   console.log('write Post with scraped data');
   const postPayload: any = {

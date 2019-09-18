@@ -61,7 +61,7 @@ export const _onCreateInboundShare = async (
   const postRefString = `posts/${postRef.id}`;
 
   console.log('get Post data');
-  const postData = await getDocument(db.doc(postRefString), postRefString);
+  const postData = await getDocument(db, postRefString);
 
   console.log('write Post with scraped data');
   let postPayload: any = {
@@ -91,7 +91,7 @@ export const _onCreateInboundShare = async (
 
   console.log('get share data for user post');
   const shareRefString = `shares/${userId}_${postRef.id}`;
-  const shareData = await getDocument(db.doc(shareRefString), shareRefString);
+  const shareData = await getDocument(db, shareRefString);
 
   console.log('write share for user post');
   let sharePayload: any = {

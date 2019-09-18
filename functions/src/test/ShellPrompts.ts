@@ -328,7 +328,7 @@ const onWriteFriendship = (type: 'create' | 'update') => {
   return;
 };
 
-onWriteFriendship('create');
-onWriteFriendship('update');
+// onWriteFriendship('create');
+// onWriteFriendship('update');
 
-onCreateUsersPosts();
+onWritePostChange();

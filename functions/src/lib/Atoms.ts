@@ -6,7 +6,7 @@ export const createPostAtom = (post: any, postId: any = false) => ({
 });
 
 export const createUserAtom = (user: any, userId: any = false) => ({
-  userId: userId || user.id,
+  userId: userId || user._id,
   userFirstName: user.firstName,
   userLastName: user.lastName,
   userFacebookProfilePhoto: user.facebookProfilePhoto
