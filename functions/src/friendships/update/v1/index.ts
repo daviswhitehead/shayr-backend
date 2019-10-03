@@ -77,6 +77,10 @@ const backfillPost = async (db: any, batcher: Batcher, postInfo: any) => {
   const post = await getDocument(db, `posts/${postInfo.postId}`);
   const postAtom = createPostAtom(post);
 
+  if (postInfo.postId === 'SHAYR_HOW_TO') {
+    return;
+  }
+
   batcher.set(
     postInfo._reference,
     {
@@ -150,7 +154,7 @@ export const onUpdateFriendship = async (
   console.log('initiatingUser');
   logger(initiatingUser);
 
-  // backfilling for the receiving user
+  // backfilling timelines for each user
   await runBackfill(db, batcher, initiatingUser._id, receivingUser._id);
   await runBackfill(db, batcher, receivingUser._id, initiatingUser._id);
 
