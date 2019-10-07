@@ -1,13 +1,14 @@
-import { db } from '../lib/Config';
+import { db, firebase } from '../lib/Config';
+import { ts } from '@daviswhitehead/shayr-resources';
 
-const createOnboardingPost = () =>
-  db
+const createOnboardingPost = async () => {
+  await db
     .collection('posts')
     .doc('SHAYR_HOW_TO')
     .set({
       addsCount: 0,
       commentsCount: 0,
-      createdAt: '2019-09-29T04:00:00Z',
+      createdAt: ts(firebase.firestore),
       description:
         'Welcome to Shayr! Here you can find additional details about a recommendation. Tap above to navigate to the original content source. Below the Summary, you can see the original Shayrer, who’s interested in this content, and who’s discussing!',
       image: 'https://www.shayr.app/static/media/shayr-icon.be76d5ff.png',
@@ -22,14 +23,18 @@ const createOnboardingPost = () =>
       sharesCount: 0,
       timeEstimate: '2 minute read',
       title: 'Welcome to Shayr',
-      updatedAt: '2019-09-29T04:00:00Z',
+      updatedAt: ts(firebase.firestore),
       url: 'https://www.shayr.app/#/how-to'
     })
     .then(() => {
       console.log('Successfully Created/Updated SHAYR_HOW_TO Post');
+      return null;
     })
     .catch((e: Error) => {
       console.error(e);
+      return null;
     });
+};
 
-createOnboardingPost();
+const x = createOnboardingPost();
+console.log(x);
