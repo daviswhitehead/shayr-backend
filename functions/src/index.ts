@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions';
-import { db } from './lib/Config';
+import { firebase, db } from './lib/Config';
 import { _onCreateInboundShare } from './shares/create/InboundShare';
 import { _onCreateShare } from './shares/create/v2';
 import { onCreatePostAction } from './postActions/index';
@@ -40,3 +40,31 @@ exports.onWriteFriendship = functions.firestore
 exports.onCreateUsersPosts = functions.firestore
   .document('users_posts/{usersPostsId}') // {usersPostsId} = {userId}_{postId}
   .onCreate((snap, context) => onCreateUsersPosts(db, snap, context));
+
+// https://firebase.google.com/docs/firestore/solutions/schedule-export
+const client = new firebase.firestore.v1.FirestoreAdminClient();
+const bucket = `gs://${process.env.GCP_PROJECT}-firestore-exports`;
+exports.scheduledFirestoreExport = functions.pubsub
+  .schedule('0 2 * * *') // Everyday at 2am https://cloud.google.com/scheduler/docs/configuring/cron-job-schedules
+  .onRun(context => {
+    const databaseName = client.databasePath(
+      process.env.GCP_PROJECT,
+      '(default)'
+    );
+
+    return client
+      .exportDocuments({
+        name: databaseName,
+        outputUriPrefix: bucket,
+        collectionIds: ['users', 'posts', 'shares']
+      })
+      .then((responses: Array<any>) => {
+        const response = responses[0];
+        console.log(`Operation Name: ${response['name']}`);
+        return response;
+      })
+      .catch((error: Error) => {
+        console.error(error);
+        throw new Error('Export operation failed');
+      });
+  });
