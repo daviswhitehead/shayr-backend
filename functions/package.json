@@ -28,7 +28,7 @@
     "firebase-admin": "^8.3.0",
     "firebase-functions": "^3.1.0",
     "got": "^9.6.0",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.19",
     "metascraper": "^5.6.2",
     "metascraper-audio": "^5.6.2",
     "metascraper-author": "^5.6.2",
